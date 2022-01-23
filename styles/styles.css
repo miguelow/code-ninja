@@ -1,0 +1,67 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-size: 30pt;
+    font-family: 'Lora', serif;
+    height: 100%; 
+    overflow: hidden
+}
+
+img {
+    width: 100%;
+}
+
+main {
+    margin-bottom: 150px;
+}
+
+footer {
+    height: 20vh;
+    
+}
+
+.starting-screen {
+    background-color: gray; 
+    width: 30%;
+    margin: auto, auto;
+    justify-content: center;
+    padding-top: 300px;
+    align-items: center;
+
+}
+
+.game-info {
+    align-items: center;
+    text-align: center;
+    margin-top: 10%;
+    background-color: #b7b7a4;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    
+}
+
+.game-modes {
+    justify-content: center;
+    text-align: center;
+    background-color: #cb997e;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#start-button {
+    display: flex;
+    margin-left: 45%;
+    margin: 0, auto;
+    padding: 20px;
+}
+
+.user-input {
+    display: flex;
+    background-color: #a5a58d;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    
+}
