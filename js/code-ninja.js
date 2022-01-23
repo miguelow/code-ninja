@@ -47,7 +47,7 @@ const code_ninja = {
     },
 
     setGame() {
-        this.player = new Player(this.ctx, 100, 100, 100, 100, 5, this.keys)
+        this.player = new Player(this.ctx, 100, 100, 100, 100, 5, this.keys, '/imgs/german.png')
         this.background = new Background(this.ctx, this.canvasSize.w, this.canvasSize.h, '/imgs/backgroundtry.png')
 
     },

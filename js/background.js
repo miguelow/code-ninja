@@ -7,7 +7,7 @@ class Background {
         this.backgroundPos = { x: 0, y: 0 }
     }
     draw() {
-        this.ctx.drawImage(this.image, this.backgroundPos.x, this.backgroundPos.y)
+        this.ctx.drawImage(this.image, this.backgroundPos.x, this.backgroundPos.y, this.backgroundSize.w, this.backgroundSize.h)
     }
 
 }
