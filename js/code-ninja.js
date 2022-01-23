@@ -38,12 +38,6 @@ const code_ninja = {
         this.canvasDom.setAttribute('height', this.canvasSize.h)
     },
 
-    playButton() {
-        this.ctx.beginPath()
-        this.ctx.rect(this.canvasSize.w / 2, this.canvasSize.h / 2, 200, 100)
-        this.ctx.fillStyle = '#FFFFFF'
-
-    },
 
     startGame() {
         this.intervalID = setInterval(() => {
