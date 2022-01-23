@@ -1,5 +1,5 @@
 class Player {
-    constructor() {
+    constructor(ctx, playerWidth, playerHeight,) {
 
     }
 }
