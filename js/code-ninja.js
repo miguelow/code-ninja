@@ -7,7 +7,7 @@ const code_ninja = {
     width: undefined,
     height: undefined,
     background: undefined,
-    player: [],
+    player: undefined,
     enemies: [],
     canvasDom: undefined,
     intervalID: undefined,
@@ -26,8 +26,6 @@ const code_ninja = {
         this.canvasDom = document.querySelector('#myCanvas')
         this.ctx = this.canvasDom.getContext('2d')
         this.setDimensions()
-        this.eventListeners()
-        this.playButton()
         this.startGame()
     },
 
@@ -40,6 +38,7 @@ const code_ninja = {
 
 
     startGame() {
+        this.setGame()
         this.intervalID = setInterval(() => {
             this.framesCounter > 3000 ? this.framesCounter = 0 : this.framesCounter++
             this.clearAll()
@@ -47,13 +46,19 @@ const code_ninja = {
         }, 1000)
     },
 
+    setGame() {
+        this.player = new Player(this.ctx, 100, 100, 100, 100, 5, this.keys)
+        this.background = new Background(this.ctx, this.canvasSize.w, this.canvasSize.h, '/imgs/backgroundtry.png')
 
+    },
 
     clearAll() {
         this.ctx.clearRect(0, 0, this.canvasSize.w, this.canvasSize.h)
     },
 
     drawAll() {
+        this.background.draw()
+        this.player.draw()
 
     },
 
@@ -67,8 +72,4 @@ const code_ninja = {
 
 
 
-    eventListeners() {
-        document.addEventListener('keydown', key => {
-        })
-    }
 }
