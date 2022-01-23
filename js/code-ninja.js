@@ -26,6 +26,7 @@ const code_ninja = {
         this.canvasDom = document.querySelector('#myCanvas')
         this.ctx = this.canvasDom.getContext('2d')
         this.setDimensions()
+        this.setEventHandlers()
         this.startGame()
     },
 
@@ -43,7 +44,7 @@ const code_ninja = {
             this.framesCounter > 3000 ? this.framesCounter = 0 : this.framesCounter++
             this.clearAll()
             this.drawAll()
-        }, 1000)
+        }, 1000 / this.FPS)
     },
 
     setGame() {
@@ -62,7 +63,16 @@ const code_ninja = {
 
     },
 
+    setEventHandlers() {
+        document.addEventListener('keydown', e => {
+            const { code } = e
+            code === 'KeyW' ? this.player.moveUp() : null
+            code === 'KeyA' ? this.player.moveLeft() : null
+            code === 'KeyS' ? this.player.moveDown() : null
+            code === 'KeyD' ? this.player.moveRight() : null
 
+        })
+    },
 
 
 
