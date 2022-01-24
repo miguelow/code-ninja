@@ -5,25 +5,23 @@ class Enemy {
         this.enemyVelocity = enemyVelocity
         this.enemySize = { w: enemyWidth, h: enemyHeight }
         this.playerPos = { x: playerPosX, y: playerPosY }
+        this.RandomWordNumber = Math.floor(Math.random() * htmlWords.length)
 
     }
-
 
     draw() {
         // this.ctx.fillRect(this.enemyPos.x, this.enemyPos.y, this.enemySize.w, this.enemySize.h)
         // this.ctx.fillStyle = 'black'
         this.ctx.font = "20px Comic Sans MS"
         this.ctx.fillStyle = "white"
-        console.log(this.htmlWords)
-        // this.ctx.fillText(this.htmlWords[this.getRandomWord], this.enemyPos.x, this.enemyPos.y)
+        this.ctx.fillText(htmlWords[this.RandomWordNumber], this.enemyPos.x, this.enemyPos.y)
     }
 
     move(playerPos) {
         playerPos.x - this.enemyPos.x > 0 ? this.enemyPos.x += this.enemyVelocity : this.enemyPos.x -= this.enemyVelocity
         playerPos.y - this.enemyPos.y > 0 ? this.enemyPos.y += this.enemyVelocity : this.enemyPos.y -= this.enemyVelocity
-
-
     }
+
 
 
 }

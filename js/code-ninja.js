@@ -11,7 +11,7 @@ const code_ninja = {
     intervalID: undefined,
     canvasSize: { w: undefined, h: undefined },
     playerLives: 3,
-    randomWordNumber: undefined,
+
 
     keys: {
         W: 'KeyW',
@@ -44,7 +44,7 @@ const code_ninja = {
             this.framesCounter > 5000 ? this.framesCounter = 0 : this.framesCounter++
             this.clearAll()
 
-            if (this.framesCounter % 200 === 0) {
+            if (this.framesCounter % 400 === 0) {
 
                 this.createEnemy()
             }
@@ -55,6 +55,17 @@ const code_ninja = {
                 elm.move(this.player.playerPos)
                 elm.draw()
                 this.checkCollision(elm)
+                document.addEventListener('keydown', e => {
+                    const { code } = e
+                    let input = document.querySelector('.inputBox').value
+                    if (code === 'Enter') {
+                        console.log(input)
+                        input = ""
+
+                    }
+
+
+                })
             })
 
         }, 1000 / this.FPS)
@@ -109,7 +120,9 @@ const code_ninja = {
             e.key === 'a' && (this.left = false)
             e.key === 's' && (this.down = false)
         })
+
     },
+
 
     move() {
         this.up && (this.player.playerPos.y -= 2)
@@ -144,11 +157,10 @@ const code_ninja = {
         clearInterval(this.intervalID)
     },
 
-    getRandomWord() {
-        this.randomWordNumber = Math.floor(Math.random() * this.htmlWords.length)
+    compareWords(elm) {
+
 
     }
-
 
 
 
