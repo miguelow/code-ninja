@@ -16,9 +16,20 @@ class Player {
 
     }
 
-    moveUp() { this.playerPos.y -= this.playerVelocity }
-    moveLeft() { this.playerPos.x -= this.playerVelocity }
-    moveDown() { this.playerPos.y += this.playerVelocity }
-    moveRight() { this.playerPos.x += this.playerVelocity }
+    move(code){
+        console.log(code)
+        if (code === 'KeyW'){
+            this.playerPos.y -= this.playerVelocity
+        }
+        if (code === 'KeyA'){
+            this.playerPos.x -= this.playerVelocity
+        }
+        if (code === 'KeyS'){
+            this.playerPos.y += this.playerVelocity
+        }
+        if (code === 'KeyD'){
+            this.playerPos.x += this.playerVelocity
+        }
+    }
 
 }
