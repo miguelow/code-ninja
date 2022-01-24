@@ -10,6 +10,7 @@ const code_ninja = {
     canvasDom: undefined,
     intervalID: undefined,
     canvasSize: { w: undefined, h: undefined },
+    playerLives: 3,
 
     keys: {
         W: 'KeyW',
@@ -41,17 +42,18 @@ const code_ninja = {
         this.intervalID = setInterval(() => {
             this.framesCounter > 5000 ? this.framesCounter = 0 : this.framesCounter++
             this.clearAll()
-            
-            if (this.framesCounter % 200 ===0) {
-                
+
+            if (this.framesCounter % 200 === 0) {
+
                 this.createEnemy()
             }
-            
+
             this.drawAll()
-            
+
             this.enemies.forEach(elm => {
-                    elm.move(this.player.playerPos)
-                    elm.draw()
+                elm.move(this.player.playerPos)
+                elm.draw()
+                this.checkCollision(elm)
             })
 
         }, 1000 / this.FPS)
@@ -67,13 +69,13 @@ const code_ninja = {
         let screenSide = Math.floor(Math.random() * 4)
 
         if (screenSide === 0) {
-            this.enemies.push(this.enemy = new Enemy(this.ctx, Math.floor(Math.random() * this.canvasSize.w), 0, 100, 100, 1, this.player.playerPos.x,this.player.playerPos.y))
+            this.enemies.push(this.enemy = new Enemy(this.ctx, Math.floor(Math.random() * this.canvasSize.w), 0, 60, 20, .7, this.player.playerPos.x, this.player.playerPos.y))
         } else if (screenSide === 1) {
-            this.enemies.push(this.enemy = new Enemy(this.ctx, this.canvasSize.w - 100, Math.floor(Math.random() * this.canvasSize.h), 100, 100, 1, this.player.playerPos.x,this.player.playerPos.y))
+            this.enemies.push(this.enemy = new Enemy(this.ctx, this.canvasSize.w - 60, Math.floor(Math.random() * this.canvasSize.h), 60, 20, .7, this.player.playerPos.x, this.player.playerPos.y))
         } else if (screenSide === 2) {
-            this.enemies.push(this.enemy = new Enemy(this.ctx, Math.floor(Math.random() * this.canvasSize.w), this.canvasSize.h - 100, 100, 100, 1, this.player.playerPos.x,this.player.playerPos.y))
+            this.enemies.push(this.enemy = new Enemy(this.ctx, Math.floor(Math.random() * this.canvasSize.w), this.canvasSize.h - 20, 60, 20, .7, this.player.playerPos.x, this.player.playerPos.y))
         } else if (screenSide === 3) {
-            this.enemies.push(this.enemy = new Enemy(this.ctx, 0, Math.floor(Math.random() * this.canvasSize.h), 100, 100, 1, this.player.playerPos.x,this.player.playerPos.y))
+            this.enemies.push(this.enemy = new Enemy(this.ctx, 0, Math.floor(Math.random() * this.canvasSize.h), 60, 20, .7, this.player.playerPos.x, this.player.playerPos.y))
         }
     },
 
@@ -105,10 +107,7 @@ const code_ninja = {
             e.key === 'd' && (this.right = false)
             e.key === 'a' && (this.left = false)
             e.key === 's' && (this.down = false)
-
         })
-
-
     },
 
     move() {
@@ -116,8 +115,32 @@ const code_ninja = {
         this.right && (this.player.playerPos.x += 2)
         this.down && (this.player.playerPos.y += 2)
         this.left && (this.player.playerPos.x -= 2)
+    },
 
+    checkCollision(elm) {
 
+        if (elm.enemyPos.x < this.player.playerPos.x + this.player.playerSize.w &&
+            elm.enemyPos.x + elm.enemySize.w > this.player.playerPos.x &&
+            elm.enemyPos.y < this.player.playerPos.y + this.player.playerSize.h &&
+            elm.enemySize.h + elm.enemyPos.y > this.player.playerPos.y) {
+
+            this.playerLives--
+            let indexEnemy = this.enemies.indexOf(elm)
+            if (indexEnemy != -1) this.enemies.splice(indexEnemy, 1)
+
+            if (this.playerLives === 0) {
+                alert("You lost")
+                this.clearIntervalId()
+            }
+
+            while (playerPos.x > 0 && playerPos.x < this.canvasSize.w) {
+                this.move
+            }
+        }
+    },
+
+    clearIntervalId() {
+        clearInterval(this.intervalID)
     }
 
 

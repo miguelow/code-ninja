@@ -7,26 +7,24 @@ class Player {
         this.playerVelocity = playerVelocity
         this.image = new Image()
         this.image.src = playerImgSrc
-
     }
 
 
     draw() {
         this.ctx.drawImage(this.image, this.playerPos.x, this.playerPos.y, this.playerSize.w, this.playerSize.h,)
-
     }
 
-    move(code){
-        if (code === 'KeyW'){
+    move(code) {
+        if (code === 'KeyW') {
             this.playerPos.y -= this.playerVelocity
         }
-        if (code === 'KeyA'){
+        if (code === 'KeyA') {
             this.playerPos.x -= this.playerVelocity
         }
-        if (code === 'KeyS'){
+        if (code === 'KeyS') {
             this.playerPos.y += this.playerVelocity
         }
-        if (code === 'KeyD'){
+        if (code === 'KeyD') {
             this.playerPos.x += this.playerVelocity
         }
     }
