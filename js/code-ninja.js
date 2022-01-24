@@ -50,7 +50,7 @@ const code_ninja = {
     setGame() {
         this.player = new Player(this.ctx, 50, 50, this.canvasSize.w / 2, this.canvasSize.h / 2, 10, this.keys, '/imgs/german.png')
         this.background = new Background(this.ctx, this.canvasSize.w, this.canvasSize.h, '/imgs/backgroundtry.png')
-        this.enemy = new Enemy
+        this.enemy = new Enemy()
     },
 
     clearAll() {
@@ -67,12 +67,14 @@ const code_ninja = {
     setEventHandlers() {
         document.addEventListener('keydown', e => {
             const { code } = e
+            console.log(e)
             code === 'KeyW' ? this.player.moveUp() : null
             code === 'KeyA' ? this.player.moveLeft() : null
             code === 'KeyS' ? this.player.moveDown() : null
             code === 'KeyD' ? this.player.moveRight() : null
 
         })
+
     },
 
 
