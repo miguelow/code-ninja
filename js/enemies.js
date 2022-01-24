@@ -10,8 +10,12 @@ class Enemy {
 
 
     draw() {
-        this.ctx.fillRect(this.enemyPos.x, this.enemyPos.y, this.enemySize.w, this.enemySize.h)
-        this.ctx.fillStyle = 'black'
+        // this.ctx.fillRect(this.enemyPos.x, this.enemyPos.y, this.enemySize.w, this.enemySize.h)
+        // this.ctx.fillStyle = 'black'
+        this.ctx.font = "20px Comic Sans MS"
+        this.ctx.fillStyle = "white"
+        console.log(this.htmlWords)
+        // this.ctx.fillText(this.htmlWords[this.getRandomWord], this.enemyPos.x, this.enemyPos.y)
     }
 
     move(playerPos) {

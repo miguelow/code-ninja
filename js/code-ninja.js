@@ -11,6 +11,7 @@ const code_ninja = {
     intervalID: undefined,
     canvasSize: { w: undefined, h: undefined },
     playerLives: 3,
+    randomWordNumber: undefined,
 
     keys: {
         W: 'KeyW',
@@ -141,6 +142,11 @@ const code_ninja = {
 
     clearIntervalId() {
         clearInterval(this.intervalID)
+    },
+
+    getRandomWord() {
+        this.randomWordNumber = Math.floor(Math.random() * this.htmlWords.length)
+
     }
 
 
