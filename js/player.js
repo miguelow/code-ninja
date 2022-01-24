@@ -17,7 +17,6 @@ class Player {
     }
 
     move(code){
-        console.log(code)
         if (code === 'KeyW'){
             this.playerPos.y -= this.playerVelocity
         }

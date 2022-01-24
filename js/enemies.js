@@ -5,7 +5,6 @@ class Enemy {
         this.enemyVelocity = enemyVelocity
         this.enemySize = { w: enemyWidth, h: enemyHeight }
         this.playerPos = {x: playerPosX, y: playerPosY}
-        console.log(playerPosX, playerPosY)
 
     }
 
@@ -15,28 +14,11 @@ class Enemy {
         this.ctx.fillStyle = 'black'
     }
     
-    move(playerPos) {
-        console.log(this.playerPos)
-        console.log(this.enemyPos)
-
-        // if (this.playerPos.x < this.enemyPos.x){
-        //     this.enemyPos.x -= this.enemyVelocity
-        // }
-        // if (this.playerPos.x > this.enemyPos.x){
-        //     this.enemyPos.x += this.enemyVelocity
-        // }
-        // if (this.playerPos.y > this.enemyPos.y){
-        //     this.enemyPos.y += this.enemyVelocity
-        // }
-        // if (this.playerPos.y > this.enemyPos.y){
-        //     this.enemyPos.y -= this.enemyVelocity
-        // }
-        this.enemyPos.x += playerPos.x - this.enemyPos.x
-        this.enemyPos.y += playerPos.y - this.enemyPos.y
+    move(playerPos) {   
+        playerPos.x - this.enemyPos.x > 0 ? this.enemyPos.x += this.enemyVelocity : this.enemyPos.x -= this.enemyVelocity
+        playerPos.y - this.enemyPos.y > 0 ? this.enemyPos.y += this.enemyVelocity : this.enemyPos.y -= this.enemyVelocity
 
     }
-
-
 
 
 }

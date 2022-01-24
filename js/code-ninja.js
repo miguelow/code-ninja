@@ -39,10 +39,10 @@ const code_ninja = {
     startGame() {
         this.setGame()
         this.intervalID = setInterval(() => {
-            this.framesCounter > 100 ? this.framesCounter = 0 : this.framesCounter++
+            this.framesCounter > 5000 ? this.framesCounter = 0 : this.framesCounter++
             this.clearAll()
             
-            if (this.framesCounter === 100) {
+            if (this.framesCounter % 200 ===0) {
                 
                 this.createEnemy()
             }
@@ -50,8 +50,8 @@ const code_ninja = {
             this.drawAll()
             
             this.enemies.forEach(elm => {
-                elm.draw()
-                elm.move(this.player.playerPos)
+                    elm.move(this.player.playerPos)
+                    elm.draw()
             })
 
         }, 1000 / this.FPS)
@@ -64,21 +64,16 @@ const code_ninja = {
     },
 
     createEnemy() {
-        // this.enemies.push(this.enemy = new Enemy(this.ctx, 0, 0, 100, 100, 1))
         let screenSide = Math.floor(Math.random() * 4)
 
         if (screenSide === 0) {
-            console.log("arriba")
-            this.enemies.push(this.enemy = new Enemy(this.ctx, Math.floor(Math.random() * this.canvasSize.w), 0, 100, 100, 10, this.player.playerPos.x,this.player.playerPos.y))
+            this.enemies.push(this.enemy = new Enemy(this.ctx, Math.floor(Math.random() * this.canvasSize.w), 0, 100, 100, 1, this.player.playerPos.x,this.player.playerPos.y))
         } else if (screenSide === 1) {
-            console.log("derecha")
-            this.enemies.push(this.enemy = new Enemy(this.ctx, this.canvasSize.w - 100, Math.floor(Math.random() * this.canvasSize.h), 100, 100, 10, this.player.playerPos.x,this.player.playerPos.y))
+            this.enemies.push(this.enemy = new Enemy(this.ctx, this.canvasSize.w - 100, Math.floor(Math.random() * this.canvasSize.h), 100, 100, 1, this.player.playerPos.x,this.player.playerPos.y))
         } else if (screenSide === 2) {
-            console.log("abajo")
-            this.enemies.push(this.enemy = new Enemy(this.ctx, Math.floor(Math.random() * this.canvasSize.w), this.canvasSize.h - 100, 100, 100, 10, this.player.playerPos.x,this.player.playerPos.y))
+            this.enemies.push(this.enemy = new Enemy(this.ctx, Math.floor(Math.random() * this.canvasSize.w), this.canvasSize.h - 100, 100, 100, 1, this.player.playerPos.x,this.player.playerPos.y))
         } else if (screenSide === 3) {
-            console.log("izquierda")
-            this.enemies.push(this.enemy = new Enemy(this.ctx, 0, Math.floor(Math.random() * this.canvasSize.h), 100, 100, 10, this.player.playerPos.x,this.player.playerPos.y))
+            this.enemies.push(this.enemy = new Enemy(this.ctx, 0, Math.floor(Math.random() * this.canvasSize.h), 100, 100, 1, this.player.playerPos.x,this.player.playerPos.y))
         }
     },
 
@@ -99,6 +94,8 @@ const code_ninja = {
             this.player.move(code)
             e.key === 'w' && (this.up = true)
             e.key === 'd' && (this.right = true)
+            e.key === 'a' && (this.left = true)
+            e.key === 's' && (this.down = true)
         })
 
         document.addEventListener('keyup', e => {
@@ -106,6 +103,8 @@ const code_ninja = {
             this.player.move(code)
             e.key === 'w' && (this.up = false)
             e.key === 'd' && (this.right = false)
+            e.key === 'a' && (this.left = false)
+            e.key === 's' && (this.down = false)
 
         })
 
@@ -113,8 +112,11 @@ const code_ninja = {
     },
 
     move() {
-        this.up && (this.player.playerPos.y -= 5)
-        this.right && (this.player.playerPos.x += 5)
+        this.up && (this.player.playerPos.y -= 2)
+        this.right && (this.player.playerPos.x += 2)
+        this.down && (this.player.playerPos.y += 2)
+        this.left && (this.player.playerPos.x -= 2)
+
 
     }
 
