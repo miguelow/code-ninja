@@ -7,7 +7,6 @@ const starterScreen = document.getElementById("starting-screen");
 startButton.addEventListener('click', () => {
     console.log(starterScreen)
     starterScreen.classList.add("d-none");
+    code_ninja.init()
 
 })
-
-code_ninja.init()

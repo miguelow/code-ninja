@@ -7,7 +7,7 @@ body {
     font-size: 30pt;
     font-family: 'Lora', serif;
     height: 100%; 
-    overflow: hidden
+    /* overflow: hidden */
 }
 
 img {
@@ -28,7 +28,6 @@ footer {
     width: 30%;
     margin: auto, auto;
     justify-content: center;
-    padding-top: 300px;
     align-items: center;
 
 }
@@ -36,10 +35,8 @@ footer {
 .game-info {
     align-items: center;
     text-align: center;
-    margin-top: 10%;
     background-color: #b7b7a4;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    
     
 }
 
@@ -47,21 +44,18 @@ footer {
     justify-content: center;
     text-align: center;
     background-color: #cb997e;
-    padding-top: 20px;
-    padding-bottom: 20px;
+   
 }
 
 #start-button {
     display: flex;
     margin-left: 45%;
     margin: 0, auto;
-    padding: 20px;
 }
 
 .user-input {
     display: flex;
     background-color: #a5a58d;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    
     
 }
