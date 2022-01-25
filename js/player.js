@@ -12,20 +12,4 @@ class Player {
     draw() {
         this.ctx.drawImage(this.image, this.playerPos.x, this.playerPos.y, this.playerSize.w, this.playerSize.h,)
     }
-
-    move(code) {
-        if (code === 'ArrowUp') {
-            this.playerPos.y -= this.playerVelocity
-        }
-        if (code === 'ArrowLeft') {
-            this.playerPos.x -= this.playerVelocity
-        }
-        if (code === 'ArrowDown') {
-            this.playerPos.y += this.playerVelocity
-        }
-        if (code === 'ArrowRight') {
-            this.playerPos.x += this.playerVelocity
-        }
-    }
-
 }

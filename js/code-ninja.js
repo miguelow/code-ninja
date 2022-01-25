@@ -12,7 +12,8 @@ const code_ninja = {
     canvasSize: { w: undefined, h: undefined },
     playerLives: 3,
     powerUpCounter: 0,
-    powerUpCreated: undefined,
+    powerUpCreated: false,
+    powerUp: undefined,
 
 
     init() {
@@ -38,27 +39,27 @@ const code_ninja = {
             this.framesCounter > 5000 ? this.framesCounter = 0 : this.framesCounter++
             this.clearAll()
 
-            if (this.powerUpCreated = true) {
-                this.powerUpCounter++
-            }
-
+            this.powerUpCounter++
 
             if (this.framesCounter % 400 === 0) {
 
                 this.createEnemy()
             }
 
-            if (this.framesCounter % 400 === 0) {
+            if (this.powerUpCounter % 1000 === 0) {
 
                 this.createPowerUp()
+                console.log(this.powerUpCounter)
             }
             this.drawAll()
 
-            if (this.powerUpCreated = true && this.powerUpCounter < 300) {
+            if (this.powerUp) {
                 this.powerUp.drawPowerUp()
-            } else if (this.powerUpCounter > 500) {
-                this.powerUpCounter = 0
-                this.powerUpCreated = false
+            }
+
+            if (this.powerUpCounter % 1500 === 0) {
+                console.log(this.powerUpCounter)
+                this.powerUp = undefined
             }
 
             this.enemies.forEach(elm => {
@@ -66,14 +67,12 @@ const code_ninja = {
                 elm.draw()
                 this.checkCollision(elm)
             })
-
         }, 1000 / this.FPS)
     },
 
     setGame() {
         this.player = new Player(this.ctx, 50, 50, this.canvasSize.w / 2, this.canvasSize.h / 2, 10, '/imgs/computer.png')
         this.background = new Background(this.ctx, this.canvasSize.w, this.canvasSize.h, '/imgs/backgroundtry.png')
-
     },
 
     createEnemy() {
@@ -99,13 +98,11 @@ const code_ninja = {
         this.background.draw()
         this.player.draw()
         this.move()
-
     },
 
     setEventHandlers() {
         document.addEventListener('keydown', e => {
             const { code } = e
-            this.player.move(code)
             e.key === 'ArrowUp' && (this.up = true)
             e.key === 'ArrowRight' && (this.right = true)
             e.key === 'ArrowLeft' && (this.left = true)
@@ -114,7 +111,6 @@ const code_ninja = {
 
         document.addEventListener('keyup', e => {
             const { code } = e
-            this.player.move(code)
             e.key === 'ArrowUp' && (this.up = false)
             e.key === 'ArrowRight' && (this.right = false)
             e.key === 'ArrowLeft' && (this.left = false)
@@ -129,9 +125,7 @@ const code_ninja = {
 
             }
         })
-
     },
-
 
     move() {
         this.up && (this.player.playerPos.y -= 2)
@@ -176,7 +170,5 @@ const code_ninja = {
         this.powerUpCreated = true
         this.powerUp = new PowerUp(this.ctx, Math.floor(Math.random() * this.canvasSize.w),
             Math.floor(Math.random() * this.canvasSize.h), 5, '/imgs/german.png')
-
-
     }
 }
