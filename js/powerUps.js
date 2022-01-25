@@ -1,20 +1,21 @@
-class PowerUp{
-    constructor(ctx, powerUpPosX, powerUpPosY, duration, powerUpImage){
+class PowerUp {
+    constructor(ctx, powerUpPosX, powerUpPosY, duration, powerUpImage) {
         this.ctx = ctx
         this.powerUpPos = { x: powerUpPosX, y: powerUpPosY }
-        this.powerUpSize = { w: 20, h: 20 }
+        this.powerUpSize = { w: 200, h: 200 }
         this.duration = duration
-        this.powerUpImage = powerUpImage
+        this.powerUpImage = new Image()
+        this.powerUpImage.src = powerUpImage
     }
-    
 
-    drawPowerUp(){
-        this.ctx.drawImage(this.powerUpImage, this.powerUpPos.x, this.powerUpPos.y, this.powerUpSize.x,this.powerUpSize.y)
+
+    drawPowerUp() {
+        this.ctx.drawImage(this.powerUpImage, this.powerUpPos.x, this.powerUpPos.y, this.powerUpSize.w, this.powerUpSize.h)
     }
 }
 
 class PowerUpIce extends PowerUp {
-    constructor(ctx, powerUpPosX, powerUpPosY, duration, powerUpImage){
+    constructor(ctx, powerUpPosX, powerUpPosY, duration, powerUpImage) {
         super(ctx, powerUpPosX, powerUpPosY, duration, powerUpImage)
 
     }

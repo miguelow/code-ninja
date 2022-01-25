@@ -50,8 +50,15 @@ const code_ninja = {
                 this.createEnemy()
             }
 
+            if (this.framesCounter % 400 === 0) {
+
+                this.createPowerUp()
+            }
             this.drawAll()
 
+            if (this.powerUp != undefined) {
+                this.powerUp.drawPowerUp()
+            }
             this.enemies.forEach(elm => {
                 elm.move(this.player.playerPos)
                 elm.draw()
@@ -90,6 +97,7 @@ const code_ninja = {
         this.background.draw()
         this.player.draw()
         this.move()
+
     },
 
     setEventHandlers() {
@@ -112,8 +120,8 @@ const code_ninja = {
         })
 
 
-        this.input.addEventListener('keydown', e=>{  
-            if (e.code === 'Enter'){
+        this.input.addEventListener('keydown', e => {
+            if (e.code === 'Enter') {
                 this.checkIfEqual(this.input.value)
                 this.input.value = ""
 
@@ -152,20 +160,17 @@ const code_ninja = {
         clearInterval(this.intervalID)
     },
 
-    checkIfEqual(playerText){
-        this.enemies.forEach(e=>{
-            if (playerText === htmlWords[e.RandomWordNumber]){
+    checkIfEqual(playerText) {
+        this.enemies.forEach(e => {
+            if (playerText === htmlWords[e.RandomWordNumber]) {
                 let comparedEnemy = this.enemies.indexOf(e)
                 if (comparedEnemy != -1) this.enemies.splice(comparedEnemy, 1)
             }
 
         })
+    },
 
+    createPowerUp() {
+        this.powerUp = new PowerUp(this.ctx, 100, 100, 5, '/imgs/german.png')
     }
-
-
-
-
-
-
 }
