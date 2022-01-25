@@ -76,8 +76,12 @@ const code_ninja = {
                 elm.move(this.player.playerPos)
                 elm.draw()
                 this.checkCollision(elm)
-                if (this.powerUpTimerVerify === true && this.powerUpTimer < 499) {
-                    this.enemyFreezed(elm)
+                console.log(elm)
+                // if (this.powerUpTimerVerify === true && this.powerUpTimer < 499) {
+                //     this.enemyFreezed(elm)
+                // }
+                if (this.powerUpTimerVerify === true && this.powerUpTimer < 50) {
+                    this.powerUpBomb(elm)
                 }
             })
         }, 1000 / this.FPS)
@@ -214,9 +218,15 @@ const code_ninja = {
         this.powerUpTimerVerify = true
     },
 
-    enemyFreezed(enemy) {
-        this.powerUpTimer < 495 ? enemy.enemyVelocity = 0 : enemy.enemyVelocity = 0.7
+    // enemyFreezed(enemy) {
+    //     this.powerUpTimer < 495 ? enemy.enemyVelocity = 0 : enemy.enemyVelocity = 0.7
 
+    // }
+    powerUpBomb(enemy) {
+        if (enemyPos.x - this.player.playerPos.x < 50 || enemyPos.x - this.player.playerPos.x > -50) {
+            let indexEnemy = this.enemies.indexOf(enemy)
+            if (indexEnemy != -1) this.enemies.splice(indexEnemy, 1)
+        }
     }
 
 }
