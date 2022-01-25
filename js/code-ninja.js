@@ -12,7 +12,7 @@ const code_ninja = {
     canvasSize: { w: undefined, h: undefined },
     playerLives: 3,
     powerUpCounter: 0,
-    powerUpCreated: false,
+
     powerUp: undefined,
 
 
@@ -36,21 +36,19 @@ const code_ninja = {
     startGame() {
         this.setGame()
         this.intervalID = setInterval(() => {
-            this.framesCounter > 5000 ? this.framesCounter = 0 : this.framesCounter++
+            this.framesCounter > 6000 ? this.framesCounter = 0 : this.framesCounter++
             this.clearAll()
 
             this.powerUpCounter++
 
             if (this.framesCounter % 400 === 0) {
-
                 this.createEnemy()
             }
 
             if (this.powerUpCounter % 1000 === 0) {
-
                 this.createPowerUp()
-                console.log(this.powerUpCounter)
             }
+
             this.drawAll()
 
             if (this.powerUp) {
@@ -58,8 +56,9 @@ const code_ninja = {
             }
 
             if (this.powerUpCounter % 1500 === 0) {
-                console.log(this.powerUpCounter)
+                // this.powerUp.clearCounter()
                 this.powerUp = undefined
+                this.powerUpCounter = 0
             }
 
             this.enemies.forEach(elm => {
@@ -150,6 +149,16 @@ const code_ninja = {
                 this.clearIntervalId()
             }
         }
+
+        if (this.powerUp !== undefined) {
+            if (this.powerUp.powerUpPos.x < this.player.playerPos.x + this.player.playerSize.w &&
+                this.powerUp.powerUpPos.x + this.powerUp.powerUpSize.w > this.player.playerPos.x &&
+                this.powerUp.powerUpPos.y < this.player.playerPos.y + this.player.playerSize.h &&
+                this.powerUp.powerUpSize.h + this.powerUp.powerUpPos.y > this.player.playerPos.y) {
+
+                this.powerUp = undefined
+            }
+        }
     },
 
     clearIntervalId() {
@@ -167,8 +176,18 @@ const code_ninja = {
     },
 
     createPowerUp() {
-        this.powerUpCreated = true
-        this.powerUp = new PowerUp(this.ctx, Math.floor(Math.random() * this.canvasSize.w),
-            Math.floor(Math.random() * this.canvasSize.h), 5, '/imgs/german.png')
+        let choosePowerUp = Math.floor(Math.random() * 3)
+        if (choosePowerUp === 0) {
+            this.powerUp = new PowerUpIce(this.ctx, Math.floor(Math.random() * this.canvasSize.w, this.enemy.enemyVelocity),
+                Math.floor(Math.random() * this.canvasSize.h), '/imgs/german.png')
+        }
+        if (choosePowerUp === 1) {
+            this.powerUp = new PowerUpBomb(this.ctx, Math.floor(Math.random() * this.canvasSize.w, this.enemy.enemyVelocity),
+                Math.floor(Math.random() * this.canvasSize.h), '/imgs/rat_2021510.jpg')
+        }
+        if (choosePowerUp === 2) {
+            this.powerUp = new PowerUpGravity(this.ctx, Math.floor(Math.random() * this.canvasSize.w, this.enemy.enemyVelocity),
+                Math.floor(Math.random() * this.canvasSize.h), '/imgs/black.jpeg')
+        }
     }
 }
