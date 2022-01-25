@@ -5,13 +5,12 @@ class PowerUp {
         this.powerUpSize = { w: 50, h: 50 }
         this.powerUpImage = new Image()
         this.powerUpImage.src = powerUpImage
-        this.powerUpTimer = 0
+
     }
 
 
     drawPowerUp() {
         this.ctx.drawImage(this.powerUpImage, this.powerUpPos.x, this.powerUpPos.y, this.powerUpSize.w, this.powerUpSize.h)
-
         this.powerUpTimer++
     }
 
@@ -26,12 +25,7 @@ class PowerUpIce extends PowerUp {
         this.enemyVelocity = enemyVelocity
     }
 
-    // freeze() {
-    //     while (this.powerUpCounter < 300) {
-    //         this.enemyVelocity = 0
-    //     }
 
-    // }
 }
 
 class PowerUpBomb extends PowerUp {

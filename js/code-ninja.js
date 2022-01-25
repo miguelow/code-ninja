@@ -12,6 +12,8 @@ const code_ninja = {
     canvasSize: { w: undefined, h: undefined },
     playerLives: 3,
     powerUpCounter: 0,
+    powerUpTimer: 0,
+    powerUpTimerVerify: false,
 
     powerUp: undefined,
 
@@ -61,10 +63,22 @@ const code_ninja = {
                 this.powerUpCounter = 0
             }
 
+            //CUANDO COJAS EL POWERUP EMPIEZA EL CONTADOR Y DURA 500 FRMES, DESPUES LO RESETEA Y VUELVE A FALSE
+            if (this.powerUpTimer === 500) {
+                this.powerUpTimerVerify = false
+                this.powerUpTimer = 0
+            }
+
+            this.powerUpTimerVerify ? this.powerUpTimer++ : null
+
+
             this.enemies.forEach(elm => {
                 elm.move(this.player.playerPos)
                 elm.draw()
                 this.checkCollision(elm)
+                if (this.powerUpTimerVerify === true && this.powerUpTimer < 499) {
+                    this.enemyFreezed(elm)
+                }
             })
         }, 1000 / this.FPS)
     },
@@ -121,7 +135,6 @@ const code_ninja = {
             if (e.code === 'Enter') {
                 this.checkIfEqual(this.input.value)
                 this.input.value = ""
-
             }
         })
     },
@@ -155,7 +168,10 @@ const code_ninja = {
                 this.powerUp.powerUpPos.x + this.powerUp.powerUpSize.w > this.player.playerPos.x &&
                 this.powerUp.powerUpPos.y < this.player.playerPos.y + this.player.playerSize.h &&
                 this.powerUp.powerUpSize.h + this.powerUp.powerUpPos.y > this.player.playerPos.y) {
+                //EMPIEZA EL CONTADOR
 
+                this.startPowerUpTimer()
+                //POWERUP DESPARECE EN CASO DE COLISION
                 this.powerUp = undefined
             }
         }
@@ -171,15 +187,16 @@ const code_ninja = {
                 let comparedEnemy = this.enemies.indexOf(e)
                 if (comparedEnemy != -1) this.enemies.splice(comparedEnemy, 1)
             }
-
         })
     },
 
     createPowerUp() {
         let choosePowerUp = Math.floor(Math.random() * 3)
+
         if (choosePowerUp === 0) {
             this.powerUp = new PowerUpIce(this.ctx, Math.floor(Math.random() * this.canvasSize.w, this.enemy.enemyVelocity),
                 Math.floor(Math.random() * this.canvasSize.h), '/imgs/german.png')
+
         }
         if (choosePowerUp === 1) {
             this.powerUp = new PowerUpBomb(this.ctx, Math.floor(Math.random() * this.canvasSize.w, this.enemy.enemyVelocity),
@@ -189,5 +206,17 @@ const code_ninja = {
             this.powerUp = new PowerUpGravity(this.ctx, Math.floor(Math.random() * this.canvasSize.w, this.enemy.enemyVelocity),
                 Math.floor(Math.random() * this.canvasSize.h), '/imgs/black.jpeg')
         }
+    },
+
+    //METODOS RELACIONADOS FREEZE
+    startPowerUpTimer() {
+        this.powerUpTimer = 0
+        this.powerUpTimerVerify = true
+    },
+
+    enemyFreezed(enemy) {
+        this.powerUpTimer < 495 ? enemy.enemyVelocity = 0 : enemy.enemyVelocity = 0.7
+
     }
+
 }
