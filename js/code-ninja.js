@@ -23,6 +23,7 @@ const code_ninja = {
 
 
     init() {
+        this.input = document.querySelector('.inputBox')
         this.canvasDom = document.querySelector('#myCanvas')
         this.ctx = this.canvasDom.getContext('2d')
         this.setDimensions()
@@ -55,17 +56,6 @@ const code_ninja = {
                 elm.move(this.player.playerPos)
                 elm.draw()
                 this.checkCollision(elm)
-                document.addEventListener('keydown', e => {
-                    const { code } = e
-                    let input = document.querySelector('.inputBox').value
-                    if (code === 'Enter') {
-                        console.log(input)
-                        input = ""
-
-                    }
-
-
-                })
             })
 
         }, 1000 / this.FPS)
@@ -106,19 +96,28 @@ const code_ninja = {
         document.addEventListener('keydown', e => {
             const { code } = e
             this.player.move(code)
-            e.key === 'w' && (this.up = true)
-            e.key === 'd' && (this.right = true)
-            e.key === 'a' && (this.left = true)
-            e.key === 's' && (this.down = true)
+            e.key === 'ArrowUp' && (this.up = true)
+            e.key === 'ArrowRight' && (this.right = true)
+            e.key === 'ArrowLeft' && (this.left = true)
+            e.key === 'ArrowDown' && (this.down = true)
         })
 
         document.addEventListener('keyup', e => {
             const { code } = e
             this.player.move(code)
-            e.key === 'w' && (this.up = false)
-            e.key === 'd' && (this.right = false)
-            e.key === 'a' && (this.left = false)
-            e.key === 's' && (this.down = false)
+            e.key === 'ArrowUp' && (this.up = false)
+            e.key === 'ArrowRight' && (this.right = false)
+            e.key === 'ArrowLeft' && (this.left = false)
+            e.key === 'ArrowDown' && (this.down = false)
+        })
+
+
+        this.input.addEventListener('keydown', e=>{  
+            if (e.code === 'Enter'){
+                this.checkIfEqual(this.input.value)
+                this.input.value = ""
+
+            }
         })
 
     },
@@ -146,10 +145,6 @@ const code_ninja = {
                 alert("You lost")
                 this.clearIntervalId()
             }
-
-            while (playerPos.x > 0 && playerPos.x < this.canvasSize.w) {
-                this.move
-            }
         }
     },
 
@@ -157,12 +152,16 @@ const code_ninja = {
         clearInterval(this.intervalID)
     },
 
-    compareWords(elm) {
+    checkIfEqual(playerText){
+        this.enemies.forEach(e=>{
+            if (playerText === htmlWords[e.RandomWordNumber]){
+                let comparedEnemy = this.enemies.indexOf(e)
+                if (comparedEnemy != -1) this.enemies.splice(comparedEnemy, 1)
+            }
 
+        })
 
     }
-
-
 
 
 
