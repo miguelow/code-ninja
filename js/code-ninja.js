@@ -71,7 +71,7 @@ const code_ninja = {
     },
 
     setGame() {
-        this.player = new Player(this.ctx, 50, 50, this.canvasSize.w / 2, this.canvasSize.h / 2, 10, '/imgs/computer.png')
+        this.player = new Player(this.ctx, 50, 50, this.canvasSize.w / 2, this.canvasSize.h / 2, 10, '/imgs/computer.png', this.canvasSize)
         this.background = new Background(this.ctx, this.canvasSize.w, this.canvasSize.h, '/imgs/backgroundtry.png')
     },
 
