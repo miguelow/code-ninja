@@ -2,7 +2,7 @@ class PowerUp {
     constructor(ctx, powerUpPosX, powerUpPosY, duration, powerUpImage) {
         this.ctx = ctx
         this.powerUpPos = { x: powerUpPosX, y: powerUpPosY }
-        this.powerUpSize = { w: 200, h: 200 }
+        this.powerUpSize = { w: 50, h: 50 }
         this.duration = duration
         this.powerUpImage = new Image()
         this.powerUpImage.src = powerUpImage

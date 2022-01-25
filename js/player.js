@@ -1,9 +1,8 @@
 class Player {
-    constructor(ctx, playerWidth, playerHeight, playerPosX, playerPosY, playerVelocity, keys, playerImgSrc) {
+    constructor(ctx, playerWidth, playerHeight, playerPosX, playerPosY, playerVelocity, playerImgSrc) {
         this.ctx = ctx
         this.playerSize = { w: playerWidth, h: playerHeight }
         this.playerPos = { x: playerPosX, y: playerPosY }
-        this.keys = keys
         this.playerVelocity = playerVelocity
         this.image = new Image()
         this.image.src = playerImgSrc

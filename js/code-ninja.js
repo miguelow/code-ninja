@@ -11,15 +11,8 @@ const code_ninja = {
     intervalID: undefined,
     canvasSize: { w: undefined, h: undefined },
     playerLives: 3,
-
-
-    keys: {
-        W: 'KeyW',
-        A: 'KeyA',
-        S: 'KeyS',
-        D: 'KeyD',
-        SPACE: 'Space'
-    },
+    powerUpCounter: 0,
+    powerUpCreated: undefined,
 
 
     init() {
@@ -45,6 +38,11 @@ const code_ninja = {
             this.framesCounter > 5000 ? this.framesCounter = 0 : this.framesCounter++
             this.clearAll()
 
+            if (this.powerUpCreated = true) {
+                this.powerUpCounter++
+            }
+
+
             if (this.framesCounter % 400 === 0) {
 
                 this.createEnemy()
@@ -56,9 +54,13 @@ const code_ninja = {
             }
             this.drawAll()
 
-            if (this.powerUp != undefined) {
+            if (this.powerUpCreated = true && this.powerUpCounter < 300) {
                 this.powerUp.drawPowerUp()
+            } else if (this.powerUpCounter > 500) {
+                this.powerUpCounter = 0
+                this.powerUpCreated = false
             }
+
             this.enemies.forEach(elm => {
                 elm.move(this.player.playerPos)
                 elm.draw()
@@ -69,7 +71,7 @@ const code_ninja = {
     },
 
     setGame() {
-        this.player = new Player(this.ctx, 50, 50, this.canvasSize.w / 2, this.canvasSize.h / 2, 10, this.keys, '/imgs/computer.png')
+        this.player = new Player(this.ctx, 50, 50, this.canvasSize.w / 2, this.canvasSize.h / 2, 10, '/imgs/computer.png')
         this.background = new Background(this.ctx, this.canvasSize.w, this.canvasSize.h, '/imgs/backgroundtry.png')
 
     },
@@ -171,6 +173,10 @@ const code_ninja = {
     },
 
     createPowerUp() {
-        this.powerUp = new PowerUp(this.ctx, 100, 100, 5, '/imgs/german.png')
+        this.powerUpCreated = true
+        this.powerUp = new PowerUp(this.ctx, Math.floor(Math.random() * this.canvasSize.w),
+            Math.floor(Math.random() * this.canvasSize.h), 5, '/imgs/german.png')
+
+
     }
 }
