@@ -1,11 +1,12 @@
 // GET PLAY BUTTON, MAIN SCREEN AND USER INPUT
 const startButton = document.getElementById('start-button');
 const starterScreen = document.getElementById("starting-screen");
-
+const aa = document.querySelector('footer')
 
 
 startButton.addEventListener('click', () => {
-    starterScreen.classList.add("d-none");
+    aa.classList.remove('d-none')
+    starterScreen.classList.add("d-none")
     code_ninja.init()
 
 })

@@ -16,10 +16,7 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <title>Code Ninja</title>
 </head>
-
 <body>
-
-
     <main>
         <div class="container">
             <container id="starting-screen" class="">
@@ -32,7 +29,6 @@
                         laborum
                         rem? Modi, saepe magnam.</p>
                 </section>
-
                 <section class="game-modes">
                     <div class="row">
                         <div class="col-12">
@@ -65,33 +61,35 @@
                 </div>
             </container>
         </div>
-
+        
     </main>
-
-
-
-
-    <canvas id="myCanvas"></canvas>
-
-    <script src="js/background.js"></script>
-    <script src="/js/words.js"></script>
-    <script src="/js/enemies.js"></script>
-    <script src="/js/player.js"></script>
-    <script src="/js/powerUps.js"></script>
-    <script src="/js/code-ninja.js"></script>
-    <script src="/js/index.js"></script>
-    <footer>
-        <container class="user-input">
-            <div class="container ">
-                <div class="row ">
-                    <div class="col-12 d-flex flex-column justify-content-center">
-                        <h2 class='centrartext'>Type here:</h2>
-                        <input class='inputBox' type="text">
+    <div class="row gx-0">
+        <footer class="d-none order-1">
+            <container class="user-input">
+                <div class="container ">
+                    <div class="row justify-content-center">
+                        <div class="col-4 d-flex flex-column pt-4 pb-4">
+                            <h2 class='centrartext'>Type here:</h2>
+                            <input class='inputBox' type="text">
+                        </div>
                     </div>
                 </div>
-            </div>
-        </container>
-    </footer>
+            </container>
+        </footer>
+    <div class='order-0'>
+        <canvas id="myCanvas"></canvas>
+        <script src="js/background.js"></script>
+        <script src="/js/words.js"></script>
+        <script src="/js/enemies.js"></script>
+        <script src="/js/player.js"></script>
+        <script src="/js/powerUps.js"></script>
+        <script src="/js/code-ninja.js"></script>
+        <script src="/js/index.js"></script>
+    
+    </div>
+
+    </div>
 </body>
+
 
 </html>

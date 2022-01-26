@@ -14,9 +14,8 @@ const code_ninja = {
     powerUpCounter: 0,
     powerUpTimer: 0,
     powerUpTimerVerify: false,
-
     powerUp: undefined,
-
+    measuredtext:undefined,
 
     init() {
         this.input = document.querySelector('.inputBox')
@@ -29,7 +28,7 @@ const code_ninja = {
 
     setDimensions() {
         this.canvasSize.w = window.innerWidth
-        this.canvasSize.h = window.innerHeight * (4 / 5)
+        this.canvasSize.h = window.innerHeight * (4/5)
         this.canvasDom.setAttribute('width', this.canvasSize.w)
         this.canvasDom.setAttribute('height', this.canvasSize.h)
     },
@@ -75,8 +74,8 @@ const code_ninja = {
             this.enemies.forEach(elm => {
                 elm.move(this.player.playerPos)
                 elm.draw()
+                this.calculateWordWidth(elm)
                 this.checkCollision(elm)
-                console.log(elm)
                 // if (this.powerUpTimerVerify === true && this.powerUpTimer < 499) {
                 //     this.enemyFreezed(elm)
                 // }
@@ -96,13 +95,13 @@ const code_ninja = {
         let screenSide = Math.floor(Math.random() * 4)
 
         if (screenSide === 0) {
-            this.enemies.push(this.enemy = new Enemy(this.ctx, Math.floor(Math.random() * this.canvasSize.w), 0, 60, 20, .7, this.player.playerPos.x, this.player.playerPos.y))
+            this.enemies.push(this.enemy = new Enemy(this.ctx, Math.floor(Math.random() * this.canvasSize.w), 0, 20, .7, this.player.playerPos.x, this.player.playerPos.y))
         } else if (screenSide === 1) {
-            this.enemies.push(this.enemy = new Enemy(this.ctx, this.canvasSize.w - 60, Math.floor(Math.random() * this.canvasSize.h), 60, 20, .7, this.player.playerPos.x, this.player.playerPos.y))
+            this.enemies.push(this.enemy = new Enemy(this.ctx, this.canvasSize.w - 60, Math.floor(Math.random() * this.canvasSize.h), 20, .7, this.player.playerPos.x, this.player.playerPos.y))
         } else if (screenSide === 2) {
-            this.enemies.push(this.enemy = new Enemy(this.ctx, Math.floor(Math.random() * this.canvasSize.w), this.canvasSize.h - 20, 60, 20, .7, this.player.playerPos.x, this.player.playerPos.y))
+            this.enemies.push(this.enemy = new Enemy(this.ctx, Math.floor(Math.random() * this.canvasSize.w), this.canvasSize.h - 20, 20, .7, this.player.playerPos.x, this.player.playerPos.y))
         } else if (screenSide === 3) {
-            this.enemies.push(this.enemy = new Enemy(this.ctx, 0, Math.floor(Math.random() * this.canvasSize.h), 60, 20, .7, this.player.playerPos.x, this.player.playerPos.y))
+            this.enemies.push(this.enemy = new Enemy(this.ctx, 0, Math.floor(Math.random() * this.canvasSize.h), 20, .7, this.player.playerPos.x, this.player.playerPos.y))
         }
     },
 
@@ -144,25 +143,24 @@ const code_ninja = {
     },
 
     move() {
-        this.up && (this.player.playerPos.y -= 2)
-        this.right && (this.player.playerPos.x += 2)
-        this.down && (this.player.playerPos.y += 2)
-        this.left && (this.player.playerPos.x -= 2)
+        this.up && (this.player.playerPos.y -= 12)
+        this.right && (this.player.playerPos.x += 12)
+        this.down && (this.player.playerPos.y += 12)
+        this.left && (this.player.playerPos.x -= 12)
     },
 
     checkCollision(elm) {
 
         if (elm.enemyPos.x < this.player.playerPos.x + this.player.playerSize.w &&
-            elm.enemyPos.x + elm.enemySize.w > this.player.playerPos.x &&
+            elm.enemyPos.x + this.measuredtext.width > this.player.playerPos.x &&
             elm.enemyPos.y < this.player.playerPos.y + this.player.playerSize.h &&
             elm.enemySize.h + elm.enemyPos.y > this.player.playerPos.y) {
-
-            this.playerLives--
-            let indexEnemy = this.enemies.indexOf(elm)
-            if (indexEnemy != -1) this.enemies.splice(indexEnemy, 1)
+                this.playerLives--
+                let indexEnemy = this.enemies.indexOf(elm)
+                if (indexEnemy != -1) this.enemies.splice(indexEnemy, 1)
 
             if (this.playerLives === 0) {
-                alert("You lost")
+                alert("You lost!")
                 this.clearIntervalId()
             }
         }
@@ -175,6 +173,7 @@ const code_ninja = {
                 //EMPIEZA EL CONTADOR
 
                 this.startPowerUpTimer()
+                this.createPowerUp()
                 //POWERUP DESPARECE EN CASO DE COLISION
                 this.powerUp = undefined
             }
@@ -195,6 +194,7 @@ const code_ninja = {
     },
 
     createPowerUp() {
+
         let choosePowerUp = Math.floor(Math.random() * 3)
 
         if (choosePowerUp === 0) {
@@ -223,10 +223,15 @@ const code_ninja = {
 
     // }
     powerUpBomb(enemy) {
-        if (enemyPos.x - this.player.playerPos.x < 50 || enemyPos.x - this.player.playerPos.x > -50) {
+        let dXEnemyPlayer = enemy.enemyPos.x - this.player.playerPos.x
+        console.log(dXEnemyPlayer)
+        let dYEnemyPlayer = enemy.enemyPos.y - this.player.playerPos.y
+        if (((dXEnemyPlayer < 200 && dXEnemyPlayer > 0) && (dYEnemyPlayer < 200 && dYEnemyPlayer > 0))|| ((dXEnemyPlayer > -200 && dXEnemyPlayer < 0)&& (dYEnemyPlayer > -200 && dYEnemyPlayer < 0))) {
             let indexEnemy = this.enemies.indexOf(enemy)
             if (indexEnemy != -1) this.enemies.splice(indexEnemy, 1)
         }
+    },
+    calculateWordWidth(elm){
+        this.measuredtext = this.ctx.measureText(htmlWords[elm.RandomWordNumber])
     }
-
 }
