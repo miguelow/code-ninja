@@ -55,7 +55,7 @@ const code_ninja = {
             if (this.powerUp) {
                 this.powerUp.drawPowerUp()
             }
-
+            console.log(this.powerUpTimerVerify)
             if (this.powerUpCounter % 1500 === 0) {
                 // this.powerUp.clearCounter()
                 this.powerUp = undefined
@@ -66,21 +66,19 @@ const code_ninja = {
             if (this.powerUpTimer === 500) {
                 this.powerUpTimerVerify = false
                 this.powerUpTimer = 0
+
             }
 
             this.powerUpTimerVerify ? this.powerUpTimer++ : null
-
+            
 
             this.enemies.forEach(elm => {
                 elm.move(this.player.playerPos)
                 elm.draw()
                 this.calculateWordWidth(elm)
                 this.checkCollision(elm)
-                // if (this.powerUpTimerVerify === true && this.powerUpTimer < 499) {
-                //     this.enemyFreezed(elm)
-                // }
-                if (this.powerUpTimerVerify === true && this.powerUpTimer < 50) {
-                    this.powerUpBomb(elm)
+                if (this.powerUpTimer > 490){
+                    elm.enemyVelocity = 0.7
                 }
             })
         }, 1000 / this.FPS)
@@ -165,6 +163,7 @@ const code_ninja = {
             }
         }
 
+        // powerUpCollision
         if (this.powerUp !== undefined) {
             if (this.powerUp.powerUpPos.x < this.player.playerPos.x + this.player.playerSize.w &&
                 this.powerUp.powerUpPos.x + this.powerUp.powerUpSize.w > this.player.playerPos.x &&
@@ -173,7 +172,8 @@ const code_ninja = {
                 //EMPIEZA EL CONTADOR
 
                 this.startPowerUpTimer()
-                this.createPowerUp()
+                console.log(this.powerUp)
+                this.powerUp.activateBooster(this.eachEnemy)
                 //POWERUP DESPARECE EN CASO DE COLISION
                 this.powerUp = undefined
             }
@@ -198,17 +198,18 @@ const code_ninja = {
         let choosePowerUp = Math.floor(Math.random() * 3)
 
         if (choosePowerUp === 0) {
-            this.powerUp = new PowerUpIce(this.ctx, Math.floor(Math.random() * this.canvasSize.w, this.enemy.enemyVelocity),
-                Math.floor(Math.random() * this.canvasSize.h), '/imgs/german.png')
+            console.log(this.enemy.enem)
+            this.powerUp = new PowerUpIce(this.ctx, Math.floor(Math.random() * this.canvasSize.w),
+                Math.floor(Math.random() * this.canvasSize.h), '/imgs/german.png', this.powerUpTimer, this.enemies)
 
         }
         if (choosePowerUp === 1) {
-            this.powerUp = new PowerUpBomb(this.ctx, Math.floor(Math.random() * this.canvasSize.w, this.enemy.enemyVelocity),
-                Math.floor(Math.random() * this.canvasSize.h), '/imgs/rat_2021510.jpg')
+            this.powerUp = new PowerUpBomb(this.ctx, Math.floor(Math.random() * this.canvasSize.w),
+                Math.floor(Math.random() * this.canvasSize.h), '/imgs/rat_2021510.jpg', this.powerUpTimer, this.player.playerPos.x, this.player.playerPos.y, this.enemies)
         }
         if (choosePowerUp === 2) {
-            this.powerUp = new PowerUpGravity(this.ctx, Math.floor(Math.random() * this.canvasSize.w, this.enemy.enemyVelocity),
-                Math.floor(Math.random() * this.canvasSize.h), '/imgs/black.jpeg')
+            this.powerUp = new PowerUpGravity(this.ctx, Math.floor(Math.random() * this.canvasSize.w),
+                Math.floor(Math.random() * this.canvasSize.h), '/imgs/black.jpeg', this.powerUpTimer, 0)
         }
     },
 
@@ -222,16 +223,16 @@ const code_ninja = {
     //     this.powerUpTimer < 495 ? enemy.enemyVelocity = 0 : enemy.enemyVelocity = 0.7
 
     // }
-    powerUpBomb(enemy) {
-        let dXEnemyPlayer = enemy.enemyPos.x - this.player.playerPos.x
-        console.log(dXEnemyPlayer)
-        let dYEnemyPlayer = enemy.enemyPos.y - this.player.playerPos.y
-        if (((dXEnemyPlayer < 200 && dXEnemyPlayer > 0) && (dYEnemyPlayer < 200 && dYEnemyPlayer > 0))|| ((dXEnemyPlayer > -200 && dXEnemyPlayer < 0)&& (dYEnemyPlayer > -200 && dYEnemyPlayer < 0))) {
-            let indexEnemy = this.enemies.indexOf(enemy)
-            if (indexEnemy != -1) this.enemies.splice(indexEnemy, 1)
-        }
-    },
+    // powerUpBomb(enemy) {
+    //     let dXEnemyPlayer = enemy.enemyPos.x - this.player.playerPos.x
+    //     let dYEnemyPlayer = enemy.enemyPos.y - this.player.playerPos.y
+    //     if (((dXEnemyPlayer < 200 && dXEnemyPlayer > 0) && (dYEnemyPlayer < 200 && dYEnemyPlayer > 0))|| ((dXEnemyPlayer > -200 && dXEnemyPlayer < 0)&& (dYEnemyPlayer > -200 && dYEnemyPlayer < 0))) {
+    //         let indexEnemy = this.enemies.indexOf(enemy)
+    //         if (indexEnemy != -1) this.enemies.splice(indexEnemy, 1)
+    //     }
+    // },
     calculateWordWidth(elm){
         this.measuredtext = this.ctx.measureText(htmlWords[elm.RandomWordNumber])
     }
+    
 }

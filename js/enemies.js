@@ -1,11 +1,12 @@
 class Enemy {
-    constructor(ctx, enemyPosX, enemyPosY, enemyHeight, enemyVelocity, playerPosX, playerPosY) {
+    constructor(ctx, enemyPosX, enemyPosY, enemyHeight, enemyVelocity, playerPosX, playerPosY, enemiesArray) {
         this.ctx = ctx
         this.enemyPos = { x: enemyPosX, y: enemyPosY }
         this.enemyVelocity = enemyVelocity
         this.enemySize = {h: enemyHeight }
         this.playerPos = { x: playerPosX, y: playerPosY }
         this.RandomWordNumber = Math.floor(Math.random() * htmlWords.length)
+        this.enemiesArray = enemiesArray
     }
 
     draw() {
@@ -20,6 +21,7 @@ class Enemy {
 
         // cambiar este 25 y si quieres que vaya al centro del jugador en y pasarle al enemy constructor playerheight y partirlo entre dos
     }
+
 
 
 
