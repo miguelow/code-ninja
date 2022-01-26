@@ -34,31 +34,30 @@ class PowerUpIce extends PowerUp {
             }
             
         })
+        return this.enemiesArray
     }
 
 
 }
 
 class PowerUpBomb extends PowerUp {
-    constructor(ctx, powerUpPosX, powerUpPosY, powerUpImage, powerUpTimer, playerPosX, playerPosY, enemyPosX, enemyPosY, enemiesArray) {
+    constructor(ctx, powerUpPosX, powerUpPosY, powerUpImage, powerUpTimer, playerPosX, playerPosY, enemiesArray) {
         super(ctx, powerUpPosX, powerUpPosY, powerUpImage, powerUpTimer)
         this.playerPos = { x:playerPosX, y: playerPosY }
-        this.enemyPos = { x:enemyPosX, y:enemyPosY }
         this.enemiesArray=enemiesArray
     }
-    activateBooster() {
-        console.log(this.enemiesArray)
-        console.log(this.enemies)
-        this.enemiesArray.forEach(enemy=>{
+    // BOMB
+    activateBooster(playerPos, enemiesArray) {
+        return enemiesArray.filter((enemy, indexEnemy)=>{
             console.log('activar bomba')
-            let dXEnemyPlayer = this.enemyPos.x - this.playerPos.x
-            let dYEnemyPlayer = this.enemyPos.y - this.playerPos.y
-            console.log(dXEnemyPlayer, dYEnemyPlayer, enemy)
-    
-            if (((dXEnemyPlayer < 200 && dXEnemyPlayer > 0) && (dYEnemyPlayer < 200 && dYEnemyPlayer > 0))|| ((dXEnemyPlayer > -200 && dXEnemyPlayer < 0)&& (dYEnemyPlayer > -200 && dYEnemyPlayer < 0))) {
-                let indexEnemy = this.enemies.indexOf(enemy)
-                if (indexEnemy != -1) this.enemies.splice(indexEnemy, 1)
+            let dXEnemyPlayer = enemy.enemyPos.x - playerPos.x
+            let dYEnemyPlayer = enemy.enemyPos.y - playerPos.y
+
+            if ((dXEnemyPlayer < 400 && dXEnemyPlayer > -400) && (dYEnemyPlayer < 400 && dYEnemyPlayer > -400)) {
+                console.log(enemy)
+                return false
             }
+            else return true
             
         })
     }
@@ -69,8 +68,11 @@ class PowerUpGravity extends PowerUp {
         super(ctx, powerUpPosX, powerUpPosY, powerUpImage, powerUpTimer)
         this.gravity = gravity 
     }
-    activateBooster() {
-        console.log('activar gravedad')
-
+    activateBooster(playerPos, enemiesArray){
+        window.enemy.draw.affectedGravity()
+        return enemiesArray
+        
     }
+
+    
 }

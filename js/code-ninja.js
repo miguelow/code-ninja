@@ -55,7 +55,6 @@ const code_ninja = {
             if (this.powerUp) {
                 this.powerUp.drawPowerUp()
             }
-            console.log(this.powerUpTimerVerify)
             if (this.powerUpCounter % 1500 === 0) {
                 // this.powerUp.clearCounter()
                 this.powerUp = undefined
@@ -93,13 +92,13 @@ const code_ninja = {
         let screenSide = Math.floor(Math.random() * 4)
 
         if (screenSide === 0) {
-            this.enemies.push(this.enemy = new Enemy(this.ctx, Math.floor(Math.random() * this.canvasSize.w), 0, 20, .7, this.player.playerPos.x, this.player.playerPos.y))
+            this.enemies.push(this.enemy = new Enemy(this.ctx, Math.floor(Math.random() * this.canvasSize.w), 0, 20, .7, this.player.playerPos.x, this.player.playerPos.y, this.canvasSize.w,this.canvasSize.h))
         } else if (screenSide === 1) {
-            this.enemies.push(this.enemy = new Enemy(this.ctx, this.canvasSize.w - 60, Math.floor(Math.random() * this.canvasSize.h), 20, .7, this.player.playerPos.x, this.player.playerPos.y))
+            this.enemies.push(this.enemy = new Enemy(this.ctx, this.canvasSize.w - 60, Math.floor(Math.random() * this.canvasSize.h), 20, .7, this.player.playerPos.x, this.player.playerPos.y, this.canvasSize.w,this.canvasSize.h))
         } else if (screenSide === 2) {
-            this.enemies.push(this.enemy = new Enemy(this.ctx, Math.floor(Math.random() * this.canvasSize.w), this.canvasSize.h - 20, 20, .7, this.player.playerPos.x, this.player.playerPos.y))
+            this.enemies.push(this.enemy = new Enemy(this.ctx, Math.floor(Math.random() * this.canvasSize.w), this.canvasSize.h - 20, 20, .7, this.player.playerPos.x, this.player.playerPos.y, this.canvasSize.w,this.canvasSize.h))
         } else if (screenSide === 3) {
-            this.enemies.push(this.enemy = new Enemy(this.ctx, 0, Math.floor(Math.random() * this.canvasSize.h), 20, .7, this.player.playerPos.x, this.player.playerPos.y))
+            this.enemies.push(this.enemy = new Enemy(this.ctx, 0, Math.floor(Math.random() * this.canvasSize.h), 20, .7, this.player.playerPos.x, this.player.playerPos.y, this.canvasSize.w,this.canvasSize.h))
         }
     },
 
@@ -173,11 +172,13 @@ const code_ninja = {
 
                 this.startPowerUpTimer()
                 console.log(this.powerUp)
-                this.powerUp.activateBooster(this.eachEnemy)
+                this.enemies = this.powerUp.activateBooster(this.player.playerPos, this.enemies)
+                console.log(this.enemies)
                 //POWERUP DESPARECE EN CASO DE COLISION
                 this.powerUp = undefined
             }
         }
+
     },
 
     clearIntervalId() {
@@ -195,7 +196,7 @@ const code_ninja = {
 
     createPowerUp() {
 
-        let choosePowerUp = Math.floor(Math.random() * 3)
+        let choosePowerUp = 2
 
         if (choosePowerUp === 0) {
             console.log(this.enemy.enem)
@@ -209,7 +210,7 @@ const code_ninja = {
         }
         if (choosePowerUp === 2) {
             this.powerUp = new PowerUpGravity(this.ctx, Math.floor(Math.random() * this.canvasSize.w),
-                Math.floor(Math.random() * this.canvasSize.h), '/imgs/black.jpeg', this.powerUpTimer, 0)
+                Math.floor(Math.random() * this.canvasSize.h), '/imgs/black.jpeg', this.powerUpTimer, (-1))
         }
     },
 
@@ -219,18 +220,7 @@ const code_ninja = {
         this.powerUpTimerVerify = true
     },
 
-    // enemyFreezed(enemy) {
-    //     this.powerUpTimer < 495 ? enemy.enemyVelocity = 0 : enemy.enemyVelocity = 0.7
 
-    // }
-    // powerUpBomb(enemy) {
-    //     let dXEnemyPlayer = enemy.enemyPos.x - this.player.playerPos.x
-    //     let dYEnemyPlayer = enemy.enemyPos.y - this.player.playerPos.y
-    //     if (((dXEnemyPlayer < 200 && dXEnemyPlayer > 0) && (dYEnemyPlayer < 200 && dYEnemyPlayer > 0))|| ((dXEnemyPlayer > -200 && dXEnemyPlayer < 0)&& (dYEnemyPlayer > -200 && dYEnemyPlayer < 0))) {
-    //         let indexEnemy = this.enemies.indexOf(enemy)
-    //         if (indexEnemy != -1) this.enemies.splice(indexEnemy, 1)
-    //     }
-    // },
     calculateWordWidth(elm){
         this.measuredtext = this.ctx.measureText(htmlWords[elm.RandomWordNumber])
     }
