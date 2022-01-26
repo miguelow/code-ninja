@@ -69,7 +69,9 @@ class PowerUpGravity extends PowerUp {
         this.gravity = gravity 
     }
     activateBooster(playerPos, enemiesArray){
-        window.enemy.draw.affectedGravity()
+        enemiesArray.forEach(enemy=>{
+            enemy.enemyPos.y +=this.gravity
+        }) 
         return enemiesArray
         
     }
