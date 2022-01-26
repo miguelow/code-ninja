@@ -16,6 +16,7 @@ const code_ninja = {
     powerUpTimerVerify: false,
     powerUp: undefined,
     measuredtext:undefined,
+    wordsEliminated:0,
 
     init() {
         this.input = document.querySelector('.inputBox')
@@ -80,11 +81,13 @@ const code_ninja = {
                     elm.enemyVelocity = 0.7
                 }
             })
+            this.wordsCounter()
+            this.livesCounter()
         }, 1000 / this.FPS)
     },
 
     setGame() {
-        this.player = new Player(this.ctx, 50, 50, this.canvasSize.w / 2, this.canvasSize.h / 2, 10, '/imgs/computer.png', this.canvasSize)
+        this.player = new Player(this.ctx, 50, 50, (this.canvasSize.w / 2)- 25, (this.canvasSize.h / 2)-25, 10, '/imgs/computer.png', this.canvasSize)
         this.background = new Background(this.ctx, this.canvasSize.w, this.canvasSize.h, '/imgs/backgroundtry.png')
     },
 
@@ -157,7 +160,7 @@ const code_ninja = {
                 if (indexEnemy != -1) this.enemies.splice(indexEnemy, 1)
 
             if (this.playerLives === 0) {
-                alert("You lost!")
+                // alert("You lost!")
                 this.clearIntervalId()
             }
         }
@@ -190,6 +193,8 @@ const code_ninja = {
             if (playerText === htmlWords[e.RandomWordNumber]) {
                 let comparedEnemy = this.enemies.indexOf(e)
                 if (comparedEnemy != -1) this.enemies.splice(comparedEnemy, 1)
+                this.wordsEliminated++
+
             }
         })
     },
@@ -223,6 +228,15 @@ const code_ninja = {
 
     calculateWordWidth(elm){
         this.measuredtext = this.ctx.measureText(htmlWords[elm.RandomWordNumber])
-    }
+    },
     
+    wordsCounter(){
+        this.ctx.font = "800 40px Comic Sans MS"
+        this.ctx.fillStyle = 'white'
+        this.ctx.fillText(`Palabras eliminadas: ${this.wordsEliminated}`, (this.canvasSize.w/2) - 185, 50)
+    },
+
+    livesCounter(){
+    
+    }
 }
