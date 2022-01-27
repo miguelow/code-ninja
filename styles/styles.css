@@ -1,11 +1,11 @@
 *{
     margin: 0;
     padding: 0;
+    font-family: 'Press Start 2P', cursive;
 }
 
 body {
-    font-size: 30pt;
-    font-family: 'Lora', serif;
+    font-size: 20px;
     height: 100%; 
     /* Método para no dejar schroll */
     /* overflow: hidden */
@@ -16,8 +16,23 @@ img {
 }
 
 footer {
-    height: 17.5vh;
+    height: 17vh;
     
+}
+h1{
+    font-weight: 900;
+    font-size: 60px;
+    text-shadow: 4px 4px 3px rgb(21,30,78);
+}
+
+hr{
+    border:3px solid;
+    width: 70%;
+    margin: 15px auto 20px auto;
+}
+main{
+    display: flex;
+    padding-top: 1%;
 }
 
 .starting-screen {
@@ -27,36 +42,91 @@ footer {
     justify-content: center;
     align-items: center;
 
+
+}
+.instructions{
+    padding-top: 15px;
+    font-size: 1.2em;
 }
 
 .game-info {
+    border-radius: 15px;
+    margin:20px 0;
+    padding:40px;
     align-items: center;
     text-align: center;
-    background-color: #b7b7a4;
-    
+    background-color: #1B3B6F;
+    box-shadow: rgba(0, 0, 0, 0.15) 5px 5px 1px;
+    color: #9EB3C2;
     
 }
 
-.game-modes {
+.Powerups {
+    box-shadow: rgba(0, 0, 0, 0.15) 5px 5px 1px;
+    border-radius: 15px;
+    padding: 40px;
     justify-content: center;
     text-align: center;
-    background-color: #cb997e;
+    background-color: #1C7293;
+    color:#91a6b5;
+    text-shadow: 2px 2px 3px rgb(255 255 255 / 30%);
+
    
 }
 
-#start-button {
-    display: flex;
-    margin-left: 45%;
-    margin: 0, auto;
+.col-4 p{
+    font-size: 0.9em;
+    width:80%;
+    margin: auto;
 }
+
 
 .user-input {
     display: flex;
-    background-color: #a5a58d;
+    background-color: gray;
     
     
 }
 
 .centrartext{
     text-align: center;
+}
+
+img {
+    max-width: 20%;
+}
+.centerbutton{
+    display: flex;
+    justify-content: center;
+}
+
+.startbutton{
+    font-size: 50px;
+    display: inline-block;
+	margin:22px 91px 22px 100px;
+    font-weight: bold;
+    background-color: lightgray;
+    padding: 20px 105px;
+    text-align: center;
+    text-shadow: -1px -1px black, 1px 1px white;
+    color: gray;
+
+	border-radius: 7px;
+    box-shadow: 0 .2em gray; 
+    cursor: pointer;
+
+}
+.startbutton:active {
+	box-shadow: none;
+	position: relative;
+	top: .2em;
+}
+.inputBox{
+    text-align: center;
+    padding: 14px 0;
+    box-shadow: 0.4em 0.4em 0.1em rgb(94, 94, 94); 
+}
+.texthelp{
+    font-size: 1.3em;
+    font-weight: 600;
 }

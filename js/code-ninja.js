@@ -89,21 +89,21 @@ const code_ninja = {
     },
 
     setGame() {
-        this.player = new Player(this.ctx, 30, 30, (this.canvasSize.w / 2) - 15, (this.canvasSize.h / 2) - 15, 10, '/imgs/spaceman/.png', this.canvasSize)
-        this.background = new Background(this.ctx, this.canvasSize.w, this.canvasSize.h, '/imgs/backgroundtry.png')
+        this.player = new Player(this.ctx, 30, 30, (this.canvasSize.w / 2) - 15, (this.canvasSize.h / 2) - 15, 10, this.canvasSize)
+        this.background = new Background(this.ctx, this.canvasSize.w, this.canvasSize.h, '/imgs/Space Background.png')
     },
 
     createEnemy() {
         let screenSide = Math.floor(Math.random() * 4)
 
         if (screenSide === 0) {
-            this.enemies.push(this.enemy = new Enemy(this.ctx, Math.floor(Math.random() * this.canvasSize.w), 0, 20, .7, this.player.playerPos.x, this.player.playerPos.y, this.canvasSize.w, this.canvasSize.h))
+            this.enemies.push(this.enemy = new Enemy(this.ctx, Math.floor(Math.random() * this.canvasSize.w), 0, 20, .5, this.player.playerPos.x, this.player.playerPos.y, this.canvasSize.w, this.canvasSize.h))
         } else if (screenSide === 1) {
-            this.enemies.push(this.enemy = new Enemy(this.ctx, this.canvasSize.w - 60, Math.floor(Math.random() * this.canvasSize.h), 20, .7, this.player.playerPos.x, this.player.playerPos.y, this.canvasSize.w, this.canvasSize.h))
+            this.enemies.push(this.enemy = new Enemy(this.ctx, this.canvasSize.w - 60, Math.floor(Math.random() * this.canvasSize.h), 20, .5, this.player.playerPos.x, this.player.playerPos.y, this.canvasSize.w, this.canvasSize.h))
         } else if (screenSide === 2) {
-            this.enemies.push(this.enemy = new Enemy(this.ctx, Math.floor(Math.random() * this.canvasSize.w), this.canvasSize.h - 20, 20, .7, this.player.playerPos.x, this.player.playerPos.y, this.canvasSize.w, this.canvasSize.h))
+            this.enemies.push(this.enemy = new Enemy(this.ctx, Math.floor(Math.random() * this.canvasSize.w), this.canvasSize.h - 20, 20, .5, this.player.playerPos.x, this.player.playerPos.y, this.canvasSize.w, this.canvasSize.h))
         } else if (screenSide === 3) {
-            this.enemies.push(this.enemy = new Enemy(this.ctx, 0, Math.floor(Math.random() * this.canvasSize.h), 20, .7, this.player.playerPos.x, this.player.playerPos.y, this.canvasSize.w, this.canvasSize.h))
+            this.enemies.push(this.enemy = new Enemy(this.ctx, 0, Math.floor(Math.random() * this.canvasSize.h), 20, .5, this.player.playerPos.x, this.player.playerPos.y, this.canvasSize.w, this.canvasSize.h))
         }
     },
 
@@ -146,10 +146,10 @@ const code_ninja = {
     },
 
     move() {
-        this.up && (this.player.playerPos.y -= 12)
-        this.right && (this.player.playerPos.x += 12)
-        this.down && (this.player.playerPos.y += 12)
-        this.left && (this.player.playerPos.x -= 12)
+        this.up && (this.player.playerPos.y -= 6)
+        this.right && (this.player.playerPos.x += 6)
+        this.down && (this.player.playerPos.y += 6)
+        this.left && (this.player.playerPos.x -= 6)
     },
 
     checkCollision(elm) {
@@ -215,7 +215,7 @@ const code_ninja = {
         }
         if (choosePowerUp === 2) {
             this.powerUp = new PowerUpGravity(this.ctx, Math.floor(Math.random() * this.canvasSize.w),
-                Math.floor(Math.random() * this.canvasSize.h), '/imgs/greenSlime.png', this.powerUpTimer, (-1))
+                Math.floor(Math.random() * this.canvasSize.h), '/imgs/greenSlime.png', this.powerUpTimer, (-0.4))
         }
     },
 
@@ -231,12 +231,15 @@ const code_ninja = {
     },
 
     wordsCounter() {
-        this.ctx.font = "800 40px Comic Sans MS"
-        this.ctx.fillStyle = 'white'
-        this.ctx.fillText(`Palabras eliminadas: ${this.wordsEliminated}`, (this.canvasSize.w / 2) - 185, 50)
+        // this.ctx.font = "800 40px 'Press Start 2P'"
+        // this.ctx.fillStyle = 'white'
+        // this.ctx.fillText(`Palabras eliminadas: ${this.wordsEliminated}`, (this.canvasSize.w / 2) - 185, 50)
+        const score = document.querySelector('.score')
+        score.innerText = `Score:${this.wordsEliminated}`
     },
 
     livesCounter() {
-
+        const livesleft = document.querySelector('.livesleft')
+        livesleft.innerText = `Lives left:${this.playerLives}`
     }
 }

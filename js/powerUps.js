@@ -2,13 +2,16 @@ class PowerUp {
     constructor(ctx, powerUpPosX, powerUpPosY, powerUpImage, powerUpTimer) {
         this.ctx = ctx
         this.powerUpPos = { x: powerUpPosX, y: powerUpPosY }
-        this.powerUpSize = { w: 50, h: 50 }
+        this.powerUpSize = { w: 75, h: 75 }
         this.powerUpImage = new Image()
         this.powerUpImage.src = powerUpImage
         this.powerUpTimer = powerUpTimer
         this.powerUpImage.frames = 4
         this.powerUpImage.framesIndex = 0
-
+        this.explosion = new Image()
+        this.explosion.src = 'imgs/Fire Effect 2/Fire Effect 2/Explosion SpriteSheet.png'
+        this.explosion.frames = 4
+        this.powerUpImage.framesIndex = 0
     }
 
 
@@ -33,6 +36,7 @@ class PowerUpIce extends PowerUp {
 
             if (1 < this.powerUpTimer < 490) {
                 enemy.enemyVelocity = 0
+                this.drawExplosion()
             }
 
         })
@@ -46,6 +50,10 @@ class PowerUpIce extends PowerUp {
         if (this.powerUpImage.framesIndex >= this.powerUpImage.frames) {
             this.powerUpImage.framesIndex = 0
         }
+    }
+    drawExplosion() {
+        this.ctx.drawImage(this.explosion, this.explosion.framesIndex * (this.powerUpImage.width / this.powerUpImage.frames), 0, this.powerUpImage.width / this.powerUpImage.frames, this.powerUpImage.height, this.powerUpPos.x, this.powerUpPos.y, this.powerUpSize.w, this.powerUpSize.h)
+
     }
 
 
@@ -63,7 +71,7 @@ class PowerUpBomb extends PowerUp {
             let dXEnemyPlayer = enemy.enemyPos.x - playerPos.x
             let dYEnemyPlayer = enemy.enemyPos.y - playerPos.y
 
-            if ((dXEnemyPlayer < 400 && dXEnemyPlayer > -400) && (dYEnemyPlayer < 400 && dYEnemyPlayer > -400)) {
+            if ((dXEnemyPlayer < 200 && dXEnemyPlayer > -200) && (dYEnemyPlayer < 200 && dYEnemyPlayer > -200)) {
                 return false
             }
             else return true
@@ -83,13 +91,14 @@ class PowerUpBomb extends PowerUp {
 }
 
 class PowerUpGravity extends PowerUp {
-    constructor(ctx, powerUpPosX, powerUpPosY, powerUpImage, powerUpTimer, gravity) {
+    constructor(ctx, powerUpPosX, powerUpPosY, powerUpImage, powerUpTimer, repelValue) {
         super(ctx, powerUpPosX, powerUpPosY, powerUpImage, powerUpTimer)
-        this.gravity = gravity
+        this.repel = repelValue
     }
     activateBooster(playerPos, enemiesArray) {
         enemiesArray.forEach(enemy => {
-            enemy.enemyPos.y += this.gravity
+            // enemy.enemyPos.y += this.gravity
+            enemy.enemyVelocity *= this.repel
         })
         return enemiesArray
 

@@ -1,18 +1,27 @@
 class Player {
-    constructor(ctx, playerWidth, playerHeight, playerPosX, playerPosY, playerVelocity, playerImgSrc, canvasSize) {
+    constructor(ctx, playerWidth, playerHeight, playerPosX, playerPosY, playerVelocity, canvasSize) {
         this.ctx = ctx
         this.playerSize = { w: playerWidth, h: playerHeight }
         this.playerPos = { x: playerPosX, y: playerPosY }
         this.playerVelocity = playerVelocity
-        this.image = new Image()
-        this.imageUp = "/imgs/spaceman/spaceman-walk-up.png"
-        this.imageLeft = "/imgs/spaceman/spaceman-walk-left.png"
-        this.imageRight = "/imgs/spaceman/spaceman-walk-right.png"
-        this.imageDown = "/imgs/spaceman/spaceman-walk-down.png"
-        this.image.src = this.imageDown
+        this.imageUp = new Image()
+        this.imageUp.src = 'imgs/spaceman/spaceman-walk-up.png'
+        this.imageDown = new Image()
+        this.imageDown.src = 'imgs/spaceman/spaceman-walk-down.png'
+        this.imageLeft = new Image()
+        this.imageLeft.src = 'imgs/spaceman/spaceman-walk-left.png'
+        this.imageRight = new Image()
+        this.imageRight.src = 'imgs/spaceman/spaceman-walk-right.png'
+        this.image = this.imageDown
         this.canvasSize = canvasSize
-        this.image.frames = 4
-        this.image.framesIndex = 0
+        this.imageDown.frames = 4
+        this.imageDown.framesIndex = 0
+        this.imageUp.frames = 4
+        this.imageUp.framesIndex = 0
+        this.imageLeft.frames = 4
+        this.imageLeft.framesIndex = 0
+        this.imageRight.frames = 4
+        this.imageRight.framesIndex = 0
     }
 
 
@@ -49,11 +58,11 @@ class Player {
 
     changeImageDirection() {
         document.addEventListener('keydown', e => {
-            const { code } = e
-            code === 'ArrowUp' && (this.image.src = this.imageUp)
-            code === 'ArrowRight' && (this.image.src = this.imageRight)
-            code === 'ArrowLeft' && (this.image.src = this.imageLeft)
-            code === 'ArrowDown' && (this.image.src = this.imageDown)
+            if (e.code === 'ArrowUp') { this.image = this.imageUp }
+            if (e.code === 'ArrowRight') { this.image = this.imageRight }
+            if (e.code === 'ArrowLeft') { this.image = this.imageLeft }
+            if (e.code === 'ArrowDown') { this.image = this.imageDown }
+
         })
     }
 
