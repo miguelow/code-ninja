@@ -1,9 +1,8 @@
 class Player {
-    constructor(ctx, playerWidth, playerHeight, playerPosX, playerPosY, playerVelocity, canvasSize) {
+    constructor(ctx, playerWidth, playerHeight, playerPosX, playerPosY, canvasSize) {
         this.ctx = ctx
         this.playerSize = { w: playerWidth, h: playerHeight }
         this.playerPos = { x: playerPosX, y: playerPosY }
-        this.playerVelocity = playerVelocity
         this.imageUp = new Image()
         this.imageUp.src = 'imgs/spaceman/spaceman-walk-up.png'
         this.imageDown = new Image()
@@ -36,7 +35,7 @@ class Player {
         if (this.playerPos.x >= this.canvasSize.w - this.playerSize.w) {
             this.playerPos.x = this.canvasSize.w - this.playerSize.w
         }
-        if (this.playerPos.x <= 0) {
+        if (this.playerPos.x < 1) {
             this.playerPos.x = 0
         }
         if (this.playerPos.y >= this.canvasSize.h - this.playerSize.h) {

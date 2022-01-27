@@ -19,7 +19,7 @@
 
 <body>
     <main>
-        <div class="container">
+        <div class="container firstWindow">
             <container id="starting-screen">
                 <section class="game-info ">
                     <h1>Code Ninja</h1>
@@ -42,7 +42,7 @@
                             <img src="imgs\bluelimePresentation.gif" alt="">
                             <h3>FREEZE</h3>
                             <hr>
-                            <p>Freezes enemies for 5 seconds</p>
+                            <p>Freezes enemies in screen for 5 seconds</p>
                         </div>
                         <div class="col-4">
                             <img src="imgs\greenSlimePresentation.gif" alt="">
@@ -79,22 +79,25 @@
                 </div>
             </container>
         </footer>
-        <div class="container gameOverScreen d-none">
-            <div class="row ">
-                <div class="col-12 d-flex  text-align-center justify-content-center gameover">
-                    <p class="gameOverText">GAME OVER</p>
-                </div>
-                <div class="col-12 text-align-center justify-content-center  d-flex">
-                    <p>You might find useful: </p>
-                    <a href="https://developer.mozilla.org/en-US/">MDN docs</a>
-                </div>
-                <div class='centerbutton col-12'>
-                    <span id="start-button" class='startbutton'>TRY AGAIN</span>
-                </div>
+        <div id='gameover' class="containercontainer d-none">
+            <div class="container gameOverScreen">
+                <div class="row ">
+                    <div class="col-12 d-flex  text-align-center justify-content-center gameover">
+                        <p class="gameOverText">GAME OVER</p>
+                    </div>
+                    <div class="col-12 text-align-center justify-content-center  d-flex">
+                        <p>You might find useful: </p>
+                        <a href="https://developer.mozilla.org/en-US/">MDN docs</a>
+                    </div>
+                    <div class='centerbutton col-12'>
+                        <span id="tryagain-button" class='startbutton'>TRY AGAIN</span>
+                    </div>
 
+                </div>
             </div>
+
         </div>
-        <div class='order-0'>
+        <div id='showgame' class='order-0 d-none'>
             <canvas id="myCanvas"></canvas>
             <script src="js/background.js"></script>
             <script src="/js/words.js"></script>

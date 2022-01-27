@@ -1,13 +1,16 @@
 const startButton = document.getElementById('start-button');
 const starterScreen = document.getElementById("starting-screen");
+const showgame = document.querySelector('#showgame')
 const footer = document.querySelector('footer')
-const gameOverScreen = document.querySelector('gameOverScreen')
-const main = document.querySelector('main')
+
 
 
 startButton.addEventListener('click', () => {
+    showgame.classList.remove('d-none')
     footer.classList.remove('d-none')
     starterScreen.classList.add("d-none")
     code_ninja.init()
 
 })
+
+

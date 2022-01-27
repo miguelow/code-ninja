@@ -17,7 +17,7 @@ const code_ninja = {
     powerUp: undefined,
     measuredtext: undefined,
     wordsEliminated: 0,
-
+    enemySpeed: .4,
     init() {
         this.input = document.querySelector('.inputBox')
         this.canvasDom = document.querySelector('#myCanvas')
@@ -43,7 +43,7 @@ const code_ninja = {
 
             this.powerUpCounter++
 
-            if (this.framesCounter % 400 === 0) {
+            if (this.framesCounter % 250 === 0) {
                 this.createEnemy()
             }
 
@@ -59,7 +59,6 @@ const code_ninja = {
 
             }
             if (this.powerUpCounter % 1500 === 0) {
-                // this.powerUp.clearCounter()
                 this.powerUp = undefined
                 this.powerUpCounter = 0
             }
@@ -80,7 +79,7 @@ const code_ninja = {
                 this.calculateWordWidth(elm)
                 this.checkCollision(elm)
                 if (this.powerUpTimer > 490) {
-                    elm.enemyVelocity = 0.7
+                    elm.enemyVelocity = 0.4
                 }
             })
             this.wordsCounter()
@@ -91,21 +90,21 @@ const code_ninja = {
     setGame() {
         this.player = new Player(this.ctx, 30, 30, (this.canvasSize.w / 2) - 15, (this.canvasSize.h / 2) - 15, 10, this.canvasSize)
         this.background = new Background(this.ctx, this.canvasSize.w, this.canvasSize.h, '/imgs/Space Background.png')
-        var audio = new Audio('/audio/Balloon.mp3');
-        audio.play();
+        const gameAudio = new Audio('/audio/Balloon.mp3');
+        gameAudio.play();
     },
 
     createEnemy() {
         let screenSide = Math.floor(Math.random() * 4)
 
         if (screenSide === 0) {
-            this.enemies.push(this.enemy = new Enemy(this.ctx, Math.floor(Math.random() * this.canvasSize.w), 0, 20, .5, this.player.playerPos.x, this.player.playerPos.y, this.canvasSize.w, this.canvasSize.h))
+            this.enemies.push(this.enemy = new Enemy(this.ctx, Math.floor(Math.random() * this.canvasSize.w), 0, 20, this.enemySpeed, this.player.playerPos.x, this.player.playerPos.y, this.canvasSize.w, this.canvasSize.h))
         } else if (screenSide === 1) {
-            this.enemies.push(this.enemy = new Enemy(this.ctx, this.canvasSize.w - 60, Math.floor(Math.random() * this.canvasSize.h), 20, .5, this.player.playerPos.x, this.player.playerPos.y, this.canvasSize.w, this.canvasSize.h))
+            this.enemies.push(this.enemy = new Enemy(this.ctx, this.canvasSize.w - 60, Math.floor(Math.random() * this.canvasSize.h), 20, this.enemySpeed, this.player.playerPos.x, this.player.playerPos.y, this.canvasSize.w, this.canvasSize.h))
         } else if (screenSide === 2) {
-            this.enemies.push(this.enemy = new Enemy(this.ctx, Math.floor(Math.random() * this.canvasSize.w), this.canvasSize.h - 20, 20, .5, this.player.playerPos.x, this.player.playerPos.y, this.canvasSize.w, this.canvasSize.h))
+            this.enemies.push(this.enemy = new Enemy(this.ctx, Math.floor(Math.random() * this.canvasSize.w), this.canvasSize.h - 20, 20, this.enemySpeed, this.player.playerPos.x, this.player.playerPos.y, this.canvasSize.w, this.canvasSize.h))
         } else if (screenSide === 3) {
-            this.enemies.push(this.enemy = new Enemy(this.ctx, 0, Math.floor(Math.random() * this.canvasSize.h), 20, .5, this.player.playerPos.x, this.player.playerPos.y, this.canvasSize.w, this.canvasSize.h))
+            this.enemies.push(this.enemy = new Enemy(this.ctx, 0, Math.floor(Math.random() * this.canvasSize.h), 20, this.enemySpeed, this.player.playerPos.x, this.player.playerPos.y, this.canvasSize.w, this.canvasSize.h))
         }
     },
 
@@ -167,8 +166,9 @@ const code_ninja = {
             if (this.playerLives === 0) {
 
 
-
+                this.clearAll()
                 this.clearIntervalId()
+                this.gameOver()
             }
         }
 
@@ -195,7 +195,7 @@ const code_ninja = {
 
     checkIfEqual(playerText) {
         this.enemies.forEach(e => {
-            if (playerText === htmlWords[e.RandomWordNumber]) {
+            if (playerText.toLowerCase() === (htmlWords[e.RandomWordNumber]).toLowerCase()) {
                 let comparedEnemy = this.enemies.indexOf(e)
                 if (comparedEnemy != -1) this.enemies.splice(comparedEnemy, 1)
                 this.wordsEliminated++
@@ -236,9 +236,6 @@ const code_ninja = {
     },
 
     wordsCounter() {
-        // this.ctx.font = "800 40px 'Press Start 2P'"
-        // this.ctx.fillStyle = 'white'
-        // this.ctx.fillText(`Palabras eliminadas: ${this.wordsEliminated}`, (this.canvasSize.w / 2) - 185, 50)
         const score = document.querySelector('.score')
         score.innerText = `Score:${this.wordsEliminated}`
     },
@@ -246,5 +243,18 @@ const code_ninja = {
     livesCounter() {
         const livesleft = document.querySelector('.livesleft')
         livesleft.innerText = `Lives left:${this.playerLives}`
+    },
+
+    gameOver() {
+        const footer = document.querySelector('footer')
+        const gameOverScreen = document.querySelector('#gameover')
+        const main = document.querySelector('main')
+
+        footer.classList.add('d-none')
+        main.classList.add('d-none')
+        gameOverScreen.classList.remove('d-none')
+        this.canvasDom.classList.add('d-none')
+
+
     }
 }

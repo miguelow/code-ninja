@@ -22,25 +22,21 @@ class Enemy {
 
 
     move(playerPos) {
-        // normalize a vector
-
         this.enemyPos.x += (playerPos.x - this.enemyPos.x) * 0.01 * this.enemyVelocity
         this.enemyPos.y += (playerPos.y - this.enemyPos.y) * 0.01 * this.enemyVelocity
-
-        // cambiar este 25 y si quieres que vaya al centro del jugador en y pasarle al enemy constructor playerheight y partirlo entre dos
     }
 
     checkWallCollisions() {
         if (this.enemyPos.x >= this.canvasSize.w - this.enemySize.w) {
             this.enemyPos.x = this.canvasSize.w - this.enemySize.w
         }
-        if (this.enemyPos.x <= 0) {
+        if (this.enemyPos.x < 1) {
             this.enemyPos.x = 0
         }
         if (this.enemyPos.y >= this.canvasSize.h - this.enemySize.h) {
             this.enemyPos.y = this.canvasSize.h - this.enemySize.h
         }
-        if (this.enemyPos.y <= 0) {
+        if (this.enemyPos.y < 1) {
             this.enemyPos.y = 0
         }
     }
