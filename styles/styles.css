@@ -134,3 +134,18 @@ img {
 .red{
     background-color: red;
 }
+
+.gameOverScreen {
+    border-radius: 15px;
+    margin:20px auto;
+    padding:40px;
+    align-items: center;
+    text-align: center;
+    background-color: #1B3B6F;
+    box-shadow: rgba(0, 0, 0, 0.15) 5px 5px 1px;
+    color: #9EB3C2;
+}
+
+.gameOverText {
+    font-size: 80px;
+}

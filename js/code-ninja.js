@@ -165,7 +165,9 @@ const code_ninja = {
             if (indexEnemy != -1) this.enemies.splice(indexEnemy, 1)
 
             if (this.playerLives === 0) {
-                // alert("You lost!")
+
+
+
                 this.clearIntervalId()
             }
         }
@@ -205,6 +207,7 @@ const code_ninja = {
     createPowerUp() {
 
         let choosePowerUp = Math.floor(Math.random() * 3)
+
 
         if (choosePowerUp === 0) {
             this.powerUp = new PowerUpIce(this.ctx, Math.floor(Math.random() * this.canvasSize.w),

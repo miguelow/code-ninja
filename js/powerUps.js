@@ -3,15 +3,19 @@ class PowerUp {
         this.ctx = ctx
         this.powerUpPos = { x: powerUpPosX, y: powerUpPosY }
         this.powerUpSize = { w: 75, h: 75 }
+
         this.powerUpImage = new Image()
         this.powerUpImage.src = powerUpImage
         this.powerUpTimer = powerUpTimer
         this.powerUpImage.frames = 4
         this.powerUpImage.framesIndex = 0
+
         this.explosion = new Image()
-        this.explosion.src = 'imgs/Fire Effect 2/Fire Effect 2/Explosion SpriteSheet.png'
-        this.explosion.frames = 4
-        this.powerUpImage.framesIndex = 0
+        this.explosion.src = "imgs/fueguito.png"
+        this.explosion.frames = 16
+        this.explosion.framesIndex = 0
+
+
     }
 
 
@@ -36,7 +40,7 @@ class PowerUpIce extends PowerUp {
 
             if (1 < this.powerUpTimer < 490) {
                 enemy.enemyVelocity = 0
-                this.drawExplosion()
+
             }
 
         })
@@ -51,10 +55,9 @@ class PowerUpIce extends PowerUp {
             this.powerUpImage.framesIndex = 0
         }
     }
-    drawExplosion() {
-        this.ctx.drawImage(this.explosion, this.explosion.framesIndex * (this.powerUpImage.width / this.powerUpImage.frames), 0, this.powerUpImage.width / this.powerUpImage.frames, this.powerUpImage.height, this.powerUpPos.x, this.powerUpPos.y, this.powerUpSize.w, this.powerUpSize.h)
 
-    }
+
+
 
 
 }
@@ -87,6 +90,30 @@ class PowerUpBomb extends PowerUp {
             this.powerUpImage.framesIndex = 0
         }
     }
+
+    // drawExplosion(framesCounter) {
+    //     this.ctx.drawImage(
+    //         this.explosion,
+    //         this.explosion.framesIndex * (this.explosion.width / this.explosion.frames),
+    //         0,
+    //         this.explosion.width / this.explosion.frames,
+    //         this.explosion.height,
+    //         this.powerUpPos.x - this.explosion.width / 2,
+    //         this.powerUpPos.y - this.explosion.height / 2,
+    //         400,
+    //         400
+    //     )
+    //     this.animateExplosion(framesCounter)
+    // }
+
+    // animateExplosion(framesCounter) {
+    //     if (framesCounter % 3 == 0) {
+    //         this.explosion.framesIndex++
+    //     }
+    //     if (this.explosion.framesIndex >= this.explosion.frames) {
+    //         this.explosion.framesIndex = 0
+    //     }
+    // }
 
 }
 
