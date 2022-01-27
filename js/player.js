@@ -5,7 +5,11 @@ class Player {
         this.playerPos = { x: playerPosX, y: playerPosY }
         this.playerVelocity = playerVelocity
         this.image = new Image()
-        this.image.src = "/imgs/spaceman/spaceman-walk-down.png"
+        this.imageUp = "/imgs/spaceman/spaceman-walk-up.png"
+        this.imageLeft = "/imgs/spaceman/spaceman-walk-left.png"
+        this.imageRight = "/imgs/spaceman/spaceman-walk-right.png"
+        this.imageDown = "/imgs/spaceman/spaceman-walk-down.png"
+        this.image.src = this.imageDown
         this.canvasSize = canvasSize
         this.image.frames = 4
         this.image.framesIndex = 0
@@ -46,10 +50,10 @@ class Player {
     changeImageDirection() {
         document.addEventListener('keydown', e => {
             const { code } = e
-            code === 'ArrowUp' && (this.image.src = "/imgs/spaceman/spaceman-walk-up.png")
-            code === 'ArrowRight' && (this.image.src = "/imgs/spaceman/spaceman-walk-right.png")
-            code === 'ArrowLeft' && (this.image.src = "/imgs/spaceman/spaceman-walk-left.png")
-            code === 'ArrowDown' && (this.image.src = "/imgs/spaceman/spaceman-walk-down.png")
+            code === 'ArrowUp' && (this.image.src = this.imageUp)
+            code === 'ArrowRight' && (this.image.src = this.imageRight)
+            code === 'ArrowLeft' && (this.image.src = this.imageLeft)
+            code === 'ArrowDown' && (this.image.src = this.imageDown)
         })
     }
 
