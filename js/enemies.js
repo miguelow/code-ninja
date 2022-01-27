@@ -3,10 +3,10 @@ class Enemy {
         this.ctx = ctx
         this.enemyPos = { x: enemyPosX, y: enemyPosY }
         this.enemyVelocity = enemyVelocity
-        this.enemySize = {h: enemyHeight }
+        this.enemySize = { h: enemyHeight }
         this.playerPos = { x: playerPosX, y: playerPosY }
         this.RandomWordNumber = Math.floor(Math.random() * htmlWords.length)
-        this.canvasSize = {w:canvasSizeW, h:canvasSizeH}
+        this.canvasSize = { w: canvasSizeW, h: canvasSizeH }
     }
 
     draw() {
@@ -14,9 +14,11 @@ class Enemy {
         this.ctx.fillStyle = "white"
         this.ctx.fillText(htmlWords[this.RandomWordNumber], this.enemyPos.x, this.enemyPos.y)
         this.checkWallCollisions()
-       
-        }
-    
+
+    }
+
+
+
 
     move(playerPos) {
         playerPos.x - this.enemyPos.x > 0 ? this.enemyPos.x += this.enemyVelocity : this.enemyPos.x -= this.enemyVelocity
@@ -26,7 +28,6 @@ class Enemy {
     }
 
     checkWallCollisions() {
-        console.log(this.canvasSize)
         if (this.enemyPos.x >= this.canvasSize.w - this.enemySize.w) {
             this.enemyPos.x = this.canvasSize.w - this.enemySize.w
         }

@@ -15,8 +15,8 @@ const code_ninja = {
     powerUpTimer: 0,
     powerUpTimerVerify: false,
     powerUp: undefined,
-    measuredtext:undefined,
-    wordsEliminated:0,
+    measuredtext: undefined,
+    wordsEliminated: 0,
 
     init() {
         this.input = document.querySelector('.inputBox')
@@ -29,7 +29,7 @@ const code_ninja = {
 
     setDimensions() {
         this.canvasSize.w = window.innerWidth
-        this.canvasSize.h = window.innerHeight * (4/5)
+        this.canvasSize.h = window.innerHeight * (4 / 5)
         this.canvasDom.setAttribute('width', this.canvasSize.w)
         this.canvasDom.setAttribute('height', this.canvasSize.h)
     },
@@ -55,6 +55,8 @@ const code_ninja = {
 
             if (this.powerUp) {
                 this.powerUp.drawPowerUp()
+                this.powerUp.animate(this.framesCounter)
+
             }
             if (this.powerUpCounter % 1500 === 0) {
                 // this.powerUp.clearCounter()
@@ -70,14 +72,14 @@ const code_ninja = {
             }
 
             this.powerUpTimerVerify ? this.powerUpTimer++ : null
-            
+
 
             this.enemies.forEach(elm => {
                 elm.move(this.player.playerPos)
                 elm.draw()
                 this.calculateWordWidth(elm)
                 this.checkCollision(elm)
-                if (this.powerUpTimer > 490){
+                if (this.powerUpTimer > 490) {
                     elm.enemyVelocity = 0.7
                 }
             })
@@ -87,7 +89,7 @@ const code_ninja = {
     },
 
     setGame() {
-        this.player = new Player(this.ctx, 50, 50, (this.canvasSize.w / 2)- 25, (this.canvasSize.h / 2)-25, 10, '/imgs/computer.png', this.canvasSize)
+        this.player = new Player(this.ctx, 30, 30, (this.canvasSize.w / 2) - 15, (this.canvasSize.h / 2) - 15, 10, '/imgs/spaceman/.png', this.canvasSize)
         this.background = new Background(this.ctx, this.canvasSize.w, this.canvasSize.h, '/imgs/backgroundtry.png')
     },
 
@@ -95,13 +97,13 @@ const code_ninja = {
         let screenSide = Math.floor(Math.random() * 4)
 
         if (screenSide === 0) {
-            this.enemies.push(this.enemy = new Enemy(this.ctx, Math.floor(Math.random() * this.canvasSize.w), 0, 20, .7, this.player.playerPos.x, this.player.playerPos.y, this.canvasSize.w,this.canvasSize.h))
+            this.enemies.push(this.enemy = new Enemy(this.ctx, Math.floor(Math.random() * this.canvasSize.w), 0, 20, .7, this.player.playerPos.x, this.player.playerPos.y, this.canvasSize.w, this.canvasSize.h))
         } else if (screenSide === 1) {
-            this.enemies.push(this.enemy = new Enemy(this.ctx, this.canvasSize.w - 60, Math.floor(Math.random() * this.canvasSize.h), 20, .7, this.player.playerPos.x, this.player.playerPos.y, this.canvasSize.w,this.canvasSize.h))
+            this.enemies.push(this.enemy = new Enemy(this.ctx, this.canvasSize.w - 60, Math.floor(Math.random() * this.canvasSize.h), 20, .7, this.player.playerPos.x, this.player.playerPos.y, this.canvasSize.w, this.canvasSize.h))
         } else if (screenSide === 2) {
-            this.enemies.push(this.enemy = new Enemy(this.ctx, Math.floor(Math.random() * this.canvasSize.w), this.canvasSize.h - 20, 20, .7, this.player.playerPos.x, this.player.playerPos.y, this.canvasSize.w,this.canvasSize.h))
+            this.enemies.push(this.enemy = new Enemy(this.ctx, Math.floor(Math.random() * this.canvasSize.w), this.canvasSize.h - 20, 20, .7, this.player.playerPos.x, this.player.playerPos.y, this.canvasSize.w, this.canvasSize.h))
         } else if (screenSide === 3) {
-            this.enemies.push(this.enemy = new Enemy(this.ctx, 0, Math.floor(Math.random() * this.canvasSize.h), 20, .7, this.player.playerPos.x, this.player.playerPos.y, this.canvasSize.w,this.canvasSize.h))
+            this.enemies.push(this.enemy = new Enemy(this.ctx, 0, Math.floor(Math.random() * this.canvasSize.h), 20, .7, this.player.playerPos.x, this.player.playerPos.y, this.canvasSize.w, this.canvasSize.h))
         }
     },
 
@@ -112,8 +114,9 @@ const code_ninja = {
 
     drawAll() {
         this.background.draw()
-        this.player.draw()
+        this.player.draw(this.framesCounter)
         this.move()
+
     },
 
     setEventHandlers() {
@@ -155,9 +158,9 @@ const code_ninja = {
             elm.enemyPos.x + this.measuredtext.width > this.player.playerPos.x &&
             elm.enemyPos.y < this.player.playerPos.y + this.player.playerSize.h &&
             elm.enemySize.h + elm.enemyPos.y > this.player.playerPos.y) {
-                this.playerLives--
-                let indexEnemy = this.enemies.indexOf(elm)
-                if (indexEnemy != -1) this.enemies.splice(indexEnemy, 1)
+            this.playerLives--
+            let indexEnemy = this.enemies.indexOf(elm)
+            if (indexEnemy != -1) this.enemies.splice(indexEnemy, 1)
 
             if (this.playerLives === 0) {
                 // alert("You lost!")
@@ -174,9 +177,7 @@ const code_ninja = {
                 //EMPIEZA EL CONTADOR
 
                 this.startPowerUpTimer()
-                console.log(this.powerUp)
                 this.enemies = this.powerUp.activateBooster(this.player.playerPos, this.enemies)
-                console.log(this.enemies)
                 //POWERUP DESPARECE EN CASO DE COLISION
                 this.powerUp = undefined
             }
@@ -201,21 +202,20 @@ const code_ninja = {
 
     createPowerUp() {
 
-        let choosePowerUp = 2
+        let choosePowerUp = Math.floor(Math.random() * 3)
 
         if (choosePowerUp === 0) {
-            console.log(this.enemy.enem)
             this.powerUp = new PowerUpIce(this.ctx, Math.floor(Math.random() * this.canvasSize.w),
-                Math.floor(Math.random() * this.canvasSize.h), '/imgs/german.png', this.powerUpTimer, this.enemies)
+                Math.floor(Math.random() * this.canvasSize.h), '/imgs/blueSlime.png', this.powerUpTimer, this.enemies)
 
         }
         if (choosePowerUp === 1) {
             this.powerUp = new PowerUpBomb(this.ctx, Math.floor(Math.random() * this.canvasSize.w),
-                Math.floor(Math.random() * this.canvasSize.h), '/imgs/rat_2021510.jpg', this.powerUpTimer, this.player.playerPos.x, this.player.playerPos.y, this.enemies)
+                Math.floor(Math.random() * this.canvasSize.h), '/imgs/redSlime.png', this.powerUpTimer, this.player.playerPos.x, this.player.playerPos.y, this.enemies)
         }
         if (choosePowerUp === 2) {
             this.powerUp = new PowerUpGravity(this.ctx, Math.floor(Math.random() * this.canvasSize.w),
-                Math.floor(Math.random() * this.canvasSize.h), '/imgs/black.jpeg', this.powerUpTimer, (-1))
+                Math.floor(Math.random() * this.canvasSize.h), '/imgs/greenSlime.png', this.powerUpTimer, (-1))
         }
     },
 
@@ -226,17 +226,17 @@ const code_ninja = {
     },
 
 
-    calculateWordWidth(elm){
+    calculateWordWidth(elm) {
         this.measuredtext = this.ctx.measureText(htmlWords[elm.RandomWordNumber])
     },
-    
-    wordsCounter(){
+
+    wordsCounter() {
         this.ctx.font = "800 40px Comic Sans MS"
         this.ctx.fillStyle = 'white'
-        this.ctx.fillText(`Palabras eliminadas: ${this.wordsEliminated}`, (this.canvasSize.w/2) - 185, 50)
+        this.ctx.fillText(`Palabras eliminadas: ${this.wordsEliminated}`, (this.canvasSize.w / 2) - 185, 50)
     },
 
-    livesCounter(){
-    
+    livesCounter() {
+
     }
 }

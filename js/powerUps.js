@@ -6,12 +6,14 @@ class PowerUp {
         this.powerUpImage = new Image()
         this.powerUpImage.src = powerUpImage
         this.powerUpTimer = powerUpTimer
+        this.powerUpImage.frames = 4
+        this.powerUpImage.framesIndex = 0
 
     }
 
 
     drawPowerUp() {
-        this.ctx.drawImage(this.powerUpImage, this.powerUpPos.x, this.powerUpPos.y, this.powerUpSize.w, this.powerUpSize.h)
+        this.ctx.drawImage(this.powerUpImage, this.powerUpImage.framesIndex * (this.powerUpImage.width / this.powerUpImage.frames), 0, this.powerUpImage.width / this.powerUpImage.frames, this.powerUpImage.height, this.powerUpPos.x, this.powerUpPos.y, this.powerUpSize.w, this.powerUpSize.h)
         this.powerUpTimer++
     }
 
@@ -26,15 +28,24 @@ class PowerUpIce extends PowerUp {
         this.enemiesArray = enemiesArray
     }
     // Freeze enemies
-    activateBooster(){
-        this.enemiesArray.forEach(enemy=>{
-            
-            if (1 < this.powerUpTimer < 490){
+    activateBooster() {
+        this.enemiesArray.forEach(enemy => {
+
+            if (1 < this.powerUpTimer < 490) {
                 enemy.enemyVelocity = 0
             }
-            
+
         })
         return this.enemiesArray
+    }
+
+    animate(framesCounter) {
+        if (framesCounter % 10 == 0) {
+            this.powerUpImage.framesIndex++
+        }
+        if (this.powerUpImage.framesIndex >= this.powerUpImage.frames) {
+            this.powerUpImage.framesIndex = 0
+        }
     }
 
 
@@ -43,38 +54,55 @@ class PowerUpIce extends PowerUp {
 class PowerUpBomb extends PowerUp {
     constructor(ctx, powerUpPosX, powerUpPosY, powerUpImage, powerUpTimer, playerPosX, playerPosY, enemiesArray) {
         super(ctx, powerUpPosX, powerUpPosY, powerUpImage, powerUpTimer)
-        this.playerPos = { x:playerPosX, y: playerPosY }
-        this.enemiesArray=enemiesArray
+        this.playerPos = { x: playerPosX, y: playerPosY }
+        this.enemiesArray = enemiesArray
     }
     // BOMB
     activateBooster(playerPos, enemiesArray) {
-        return enemiesArray.filter((enemy, indexEnemy)=>{
-            console.log('activar bomba')
+        return enemiesArray.filter((enemy, indexEnemy) => {
             let dXEnemyPlayer = enemy.enemyPos.x - playerPos.x
             let dYEnemyPlayer = enemy.enemyPos.y - playerPos.y
 
             if ((dXEnemyPlayer < 400 && dXEnemyPlayer > -400) && (dYEnemyPlayer < 400 && dYEnemyPlayer > -400)) {
-                console.log(enemy)
                 return false
             }
             else return true
-            
+
         })
     }
+
+    animate(framesCounter) {
+        if (framesCounter % 10 == 0) {
+            this.powerUpImage.framesIndex++
+        }
+        if (this.powerUpImage.framesIndex >= this.powerUpImage.frames) {
+            this.powerUpImage.framesIndex = 0
+        }
+    }
+
 }
 
 class PowerUpGravity extends PowerUp {
     constructor(ctx, powerUpPosX, powerUpPosY, powerUpImage, powerUpTimer, gravity) {
         super(ctx, powerUpPosX, powerUpPosY, powerUpImage, powerUpTimer)
-        this.gravity = gravity 
+        this.gravity = gravity
     }
-    activateBooster(playerPos, enemiesArray){
-        enemiesArray.forEach(enemy=>{
-            enemy.enemyPos.y +=this.gravity
-        }) 
+    activateBooster(playerPos, enemiesArray) {
+        enemiesArray.forEach(enemy => {
+            enemy.enemyPos.y += this.gravity
+        })
         return enemiesArray
-        
+
     }
 
-    
+    animate(framesCounter) {
+        if (framesCounter % 10 == 0) {
+            this.powerUpImage.framesIndex++
+        }
+        if (this.powerUpImage.framesIndex >= this.powerUpImage.frames) {
+            this.powerUpImage.framesIndex = 0
+        }
+    }
+
+
 }
