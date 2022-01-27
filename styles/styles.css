@@ -32,7 +32,7 @@ hr{
 }
 main{
     display: flex;
-    padding-top: 1%;
+    
 }
 
 .starting-screen {
@@ -129,4 +129,8 @@ img {
 .texthelp{
     font-size: 1.3em;
     font-weight: 600;
+}
+
+.red{
+    background-color: red;
 }
