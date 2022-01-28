@@ -212,9 +212,6 @@ const code_ninja = {
         let choosePowerUp = Math.floor(Math.random() * 3)
 
 
-
-
-
         if (choosePowerUp === 0) {
             this.powerUp = new PowerUpIce(this.ctx, Math.floor(Math.random() * this.canvasSize.w),
                 Math.floor(Math.random() * this.canvasSize.h), '/imgs/blueSlime.png', this.powerUpTimer, this.enemies, this.enemyColor)
