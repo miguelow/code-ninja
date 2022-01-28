@@ -81,6 +81,7 @@ const code_ninja = {
                 this.checkCollision(elm)
                 if (this.powerUpTimer > 490) {
                     elm.enemyVelocity = this.enemySpeed
+                    elm.enemyColor = this.enemyColor
                 }
             })
             if (this.explosion != undefined) {
