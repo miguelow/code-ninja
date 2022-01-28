@@ -12,5 +12,9 @@ startButton.addEventListener('click', () => {
     code_ninja.init()
 
 })
+const resetButton = document.querySelector('.tryAgainButton')
 
-
+resetButton.addEventListener('click', elm => {
+    console.log(resetButton)
+    window.location.reload(elm);
+})

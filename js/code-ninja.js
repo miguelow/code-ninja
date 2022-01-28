@@ -17,7 +17,7 @@ const code_ninja = {
     powerUp: undefined,
     measuredtext: undefined,
     wordsEliminated: 0,
-    enemySpeed: .4,
+    enemySpeed: .3,
     init() {
         this.input = document.querySelector('.inputBox')
         this.canvasDom = document.querySelector('#myCanvas')
@@ -29,6 +29,7 @@ const code_ninja = {
 
     setDimensions() {
         this.canvasSize.w = window.innerWidth
+        console.log(this.canvasDom)
         this.canvasSize.h = window.innerHeight * (4 / 5)
         this.canvasDom.setAttribute('width', this.canvasSize.w)
         this.canvasDom.setAttribute('height', this.canvasSize.h)
@@ -79,7 +80,7 @@ const code_ninja = {
                 this.calculateWordWidth(elm)
                 this.checkCollision(elm)
                 if (this.powerUpTimer > 490) {
-                    elm.enemyVelocity = 0.4
+                    elm.enemyVelocity = this.enemySpeed
                 }
             })
             this.wordsCounter()

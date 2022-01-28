@@ -25,7 +25,14 @@ class Player {
 
 
     draw(framesCounter) {
-        this.ctx.drawImage(this.image, this.image.framesIndex * (this.image.width / this.image.frames), 0, this.image.width / this.image.frames, this.image.height, this.playerPos.x, this.playerPos.y, this.playerSize.w, this.playerSize.h,)
+        this.ctx.drawImage(this.image,
+            this.image.framesIndex * (this.image.width / this.image.frames),
+            0,
+            this.image.width / this.image.frames,
+            this.image.height, this.playerPos.x,
+            this.playerPos.y - 22, this.playerSize.w,
+            this.playerSize.h)
+
         this.animate(framesCounter)
         this.changeImageDirection()
         this.checkWallCollisions()
@@ -41,7 +48,7 @@ class Player {
         if (this.playerPos.y >= this.canvasSize.h - this.playerSize.h) {
             this.playerPos.y = this.canvasSize.h - this.playerSize.h
         }
-        if (this.playerPos.y <= 0) {
+        if (this.playerPos.y < 1) {
             this.playerPos.y = 0
         }
     }
