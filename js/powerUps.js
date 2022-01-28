@@ -72,7 +72,6 @@ class PowerUpBomb extends PowerUp {
         this.playerPos = { x: playerPosX, y: playerPosY }
         this.enemiesArray = enemiesArray
     }
-    // BOMB
     activateBooster(playerPos, enemiesArray) {
         return enemiesArray.filter((enemy, indexEnemy) => {
             let dXEnemyPlayer = enemy.enemyPos.x - playerPos.x
@@ -94,23 +93,6 @@ class PowerUpBomb extends PowerUp {
             this.powerUpImage.framesIndex = 0
         }
     }
-
-    // drawExplosion(framesCounter) {
-    //     this.ctx.drawImage(
-    //         this.explosion,
-    //         this.explosion.framesIndex * (this.explosion.width / this.explosion.frames),
-    //         0,
-    //         this.explosion.width / this.explosion.frames,
-    //         this.explosion.height,
-    //         this.powerUpPos.x - this.explosion.width / 2,
-    //         this.powerUpPos.y - this.explosion.height / 2,
-    //         400,
-    //         400
-    //     )
-    //     this.animateExplosion(framesCounter)
-    // }
-
-
 
 }
 

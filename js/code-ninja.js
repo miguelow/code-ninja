@@ -19,6 +19,7 @@ const code_ninja = {
     wordsEliminated: 0,
     enemySpeed: .3,
     enemyColor: "white",
+
     init() {
         this.input = document.querySelector('.inputBox')
         this.canvasDom = document.querySelector('#myCanvas')
@@ -64,7 +65,6 @@ const code_ninja = {
                 this.powerUpCounter = 0
             }
 
-            //CUANDO COJAS EL POWERUP EMPIEZA EL CONTADOR Y DURA 500 FRMES, DESPUES LO RESETEA Y VUELVE A FALSE
             if (this.powerUpTimer === 500) {
                 this.powerUpTimerVerify = false
                 this.powerUpTimer = 0
@@ -176,19 +176,16 @@ const code_ninja = {
             }
         }
 
-        // powerUpCollision
         if (this.powerUp !== undefined) {
             if (this.powerUp.powerUpPos.x < this.player.playerPos.x + this.player.playerSize.w &&
                 this.powerUp.powerUpPos.x + this.powerUp.powerUpSize.w > this.player.playerPos.x &&
                 this.powerUp.powerUpPos.y < this.player.playerPos.y + this.player.playerSize.h &&
                 this.powerUp.powerUpSize.h + this.powerUp.powerUpPos.y > this.player.playerPos.y) {
-                //EMPIEZA EL CONTADOR
 
                 this.startPowerUpTimer()
                 this.enemies = this.powerUp.activateBooster(this.player.playerPos, this.enemies)
 
                 this.explosion = new Explosion(this.ctx, this.powerUp.powerUpPos.x, this.powerUp.powerUpPos.y, 400, 400, this.framesCounter)
-                //POWERUP DESPARECE EN CASO DE COLISION
                 this.powerUp = undefined
             }
         }
@@ -212,8 +209,8 @@ const code_ninja = {
 
     createPowerUp() {
 
-        // let choosePowerUp = Math.floor(Math.random() * 3)
-        let choosePowerUp = 1
+        let choosePowerUp = Math.floor(Math.random() * 3)
+
 
 
 
@@ -233,7 +230,6 @@ const code_ninja = {
         }
     },
 
-    //METODOS RELACIONADOS FREEZE
     startPowerUpTimer() {
         this.powerUpTimer = 0
         this.powerUpTimerVerify = true
