@@ -1,5 +1,5 @@
 class Enemy {
-    constructor(ctx, enemyPosX, enemyPosY, enemyHeight, enemyVelocity, playerPosX, playerPosY, canvasSizeW, canvasSizeH) {
+    constructor(ctx, enemyPosX, enemyPosY, enemyHeight, enemyVelocity, playerPosX, playerPosY, canvasSizeW, canvasSizeH, enemyColor) {
         this.ctx = ctx
         this.enemyPos = { x: enemyPosX, y: enemyPosY }
         this.enemyVelocity = enemyVelocity
@@ -7,19 +7,16 @@ class Enemy {
         this.playerPos = { x: playerPosX, y: playerPosY }
         this.RandomWordNumber = Math.floor(Math.random() * htmlWords.length)
         this.canvasSize = { w: canvasSizeW, h: canvasSizeH }
+        this.enemyColor = enemyColor
     }
 
     draw() {
         this.ctx.font = "20px 'Press Start 2P'"
         this.ctx.shadowColor = "rgba(0,0,0,0.3)";
-        this.ctx.fillStyle = "white"
+        this.ctx.fillStyle = this.enemyColor
         this.ctx.fillText(htmlWords[this.RandomWordNumber], this.enemyPos.x, this.enemyPos.y)
         this.checkWallCollisions()
-
     }
-
-
-
 
     move(playerPos) {
         this.enemyPos.x += (playerPos.x - this.enemyPos.x) * 0.01 * this.enemyVelocity

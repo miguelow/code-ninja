@@ -40,7 +40,6 @@ class Player {
     }
 
     checkWallCollisions() {
-        console.log(this.canvasSize.w)
 
         if (this.playerPos.x >= this.canvasSize.w - this.playerSize.w) {
             this.playerPos.x = this.canvasSize.w - this.playerSize.w

@@ -30,9 +30,10 @@ class PowerUp {
 }
 
 class PowerUpIce extends PowerUp {
-    constructor(ctx, powerUpPosX, powerUpPosY, powerUpImage, powerUpTimer, enemiesArray) {
+    constructor(ctx, powerUpPosX, powerUpPosY, powerUpImage, powerUpTimer, enemiesArray, enemyColor) {
         super(ctx, powerUpPosX, powerUpPosY, powerUpImage, powerUpTimer)
         this.enemiesArray = enemiesArray
+        this.enemyColor = enemyColor
     }
     // Freeze enemies
     activateBooster() {
@@ -40,7 +41,10 @@ class PowerUpIce extends PowerUp {
 
             if (1 < this.powerUpTimer < 490) {
                 enemy.enemyVelocity = 0
-
+                enemy.enemyColor = "#99FFFF"
+            }
+            if (this.powerUpTimer > 491) {
+                enemy.enemyColor = "white"
             }
 
         })
@@ -106,14 +110,7 @@ class PowerUpBomb extends PowerUp {
     //     this.animateExplosion(framesCounter)
     // }
 
-    // animateExplosion(framesCounter) {
-    //     if (framesCounter % 3 == 0) {
-    //         this.explosion.framesIndex++
-    //     }
-    //     if (this.explosion.framesIndex >= this.explosion.frames) {
-    //         this.explosion.framesIndex = 0
-    //     }
-    // }
+
 
 }
 
@@ -124,7 +121,6 @@ class PowerUpGravity extends PowerUp {
     }
     activateBooster(playerPos, enemiesArray) {
         enemiesArray.forEach(enemy => {
-            // enemy.enemyPos.y += this.gravity
             enemy.enemyVelocity *= this.repel
         })
         return enemiesArray

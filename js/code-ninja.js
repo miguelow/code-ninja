@@ -18,6 +18,7 @@ const code_ninja = {
     measuredtext: undefined,
     wordsEliminated: 0,
     enemySpeed: .3,
+    enemyColor: "white",
     init() {
         this.input = document.querySelector('.inputBox')
         this.canvasDom = document.querySelector('#myCanvas')
@@ -82,6 +83,9 @@ const code_ninja = {
                     elm.enemyVelocity = this.enemySpeed
                 }
             })
+            if (this.explosion != undefined) {
+                this.explosion.draw(this.framesCounter)
+            }
             this.wordsCounter()
             this.livesCounter()
         }, 1000 / this.FPS)
@@ -98,13 +102,13 @@ const code_ninja = {
         let screenSide = Math.floor(Math.random() * 4)
 
         if (screenSide === 0) {
-            this.enemies.push(this.enemy = new Enemy(this.ctx, Math.floor(Math.random() * this.canvasSize.w), 0, 20, this.enemySpeed, this.player.playerPos.x, this.player.playerPos.y, this.canvasSize.w, this.canvasSize.h))
+            this.enemies.push(this.enemy = new Enemy(this.ctx, Math.floor(Math.random() * this.canvasSize.w), 0, 20, this.enemySpeed, this.player.playerPos.x, this.player.playerPos.y, this.canvasSize.w, this.canvasSize.h, this.enemyColor))
         } else if (screenSide === 1) {
-            this.enemies.push(this.enemy = new Enemy(this.ctx, this.canvasSize.w - 60, Math.floor(Math.random() * this.canvasSize.h), 20, this.enemySpeed, this.player.playerPos.x, this.player.playerPos.y, this.canvasSize.w, this.canvasSize.h))
+            this.enemies.push(this.enemy = new Enemy(this.ctx, this.canvasSize.w - 60, Math.floor(Math.random() * this.canvasSize.h), 20, this.enemySpeed, this.player.playerPos.x, this.player.playerPos.y, this.canvasSize.w, this.canvasSize.h, this.enemyColor))
         } else if (screenSide === 2) {
-            this.enemies.push(this.enemy = new Enemy(this.ctx, Math.floor(Math.random() * this.canvasSize.w), this.canvasSize.h - 20, 20, this.enemySpeed, this.player.playerPos.x, this.player.playerPos.y, this.canvasSize.w, this.canvasSize.h))
+            this.enemies.push(this.enemy = new Enemy(this.ctx, Math.floor(Math.random() * this.canvasSize.w), this.canvasSize.h - 20, 20, this.enemySpeed, this.player.playerPos.x, this.player.playerPos.y, this.canvasSize.w, this.canvasSize.h, this.enemyColor))
         } else if (screenSide === 3) {
-            this.enemies.push(this.enemy = new Enemy(this.ctx, 0, Math.floor(Math.random() * this.canvasSize.h), 20, this.enemySpeed, this.player.playerPos.x, this.player.playerPos.y, this.canvasSize.w, this.canvasSize.h))
+            this.enemies.push(this.enemy = new Enemy(this.ctx, 0, Math.floor(Math.random() * this.canvasSize.h), 20, this.enemySpeed, this.player.playerPos.x, this.player.playerPos.y, this.canvasSize.w, this.canvasSize.h, this.enemyColor))
         }
     },
 
@@ -182,6 +186,8 @@ const code_ninja = {
 
                 this.startPowerUpTimer()
                 this.enemies = this.powerUp.activateBooster(this.player.playerPos, this.enemies)
+
+                this.explosion = new Explosion(this.ctx, this.powerUp.powerUpPos.x, this.powerUp.powerUpPos.y, 400, 400, this.framesCounter)
                 //POWERUP DESPARECE EN CASO DE COLISION
                 this.powerUp = undefined
             }
@@ -206,12 +212,15 @@ const code_ninja = {
 
     createPowerUp() {
 
-        let choosePowerUp = Math.floor(Math.random() * 3)
+        // let choosePowerUp = Math.floor(Math.random() * 3)
+        let choosePowerUp = 1
+
+
 
 
         if (choosePowerUp === 0) {
             this.powerUp = new PowerUpIce(this.ctx, Math.floor(Math.random() * this.canvasSize.w),
-                Math.floor(Math.random() * this.canvasSize.h), '/imgs/blueSlime.png', this.powerUpTimer, this.enemies)
+                Math.floor(Math.random() * this.canvasSize.h), '/imgs/blueSlime.png', this.powerUpTimer, this.enemies, this.enemyColor)
 
         }
         if (choosePowerUp === 1) {
