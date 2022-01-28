@@ -1,8 +1,9 @@
 class Player {
-    constructor(ctx, playerWidth, playerHeight, playerPosX, playerPosY, canvasSize) {
+    constructor(ctx, playerWidth, playerHeight, playerPosX, playerPosY, canvasWidth, canvasHeight) {
         this.ctx = ctx
         this.playerSize = { w: playerWidth, h: playerHeight }
         this.playerPos = { x: playerPosX, y: playerPosY }
+        this.canvasSize = { w: canvasWidth, h: canvasHeight }
         this.imageUp = new Image()
         this.imageUp.src = 'imgs/spaceman/spaceman-walk-up.png'
         this.imageDown = new Image()
@@ -12,7 +13,7 @@ class Player {
         this.imageRight = new Image()
         this.imageRight.src = 'imgs/spaceman/spaceman-walk-right.png'
         this.image = this.imageDown
-        this.canvasSize = canvasSize
+
         this.imageDown.frames = 4
         this.imageDown.framesIndex = 0
         this.imageUp.frames = 4
@@ -39,17 +40,19 @@ class Player {
     }
 
     checkWallCollisions() {
+        console.log(this.canvasSize.w)
+
         if (this.playerPos.x >= this.canvasSize.w - this.playerSize.w) {
             this.playerPos.x = this.canvasSize.w - this.playerSize.w
         }
         if (this.playerPos.x < 1) {
             this.playerPos.x = 0
         }
-        if (this.playerPos.y >= this.canvasSize.h - this.playerSize.h) {
-            this.playerPos.y = this.canvasSize.h - this.playerSize.h
+        if (this.playerPos.y >= this.canvasSize.h - this.playerSize.h + 22) {
+            this.playerPos.y = this.canvasSize.h - this.playerSize.h + 22
         }
-        if (this.playerPos.y < 1) {
-            this.playerPos.y = 0
+        if (this.playerPos.y < 30) {
+            this.playerPos.y = 30
         }
     }
 

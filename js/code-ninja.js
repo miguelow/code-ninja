@@ -29,7 +29,6 @@ const code_ninja = {
 
     setDimensions() {
         this.canvasSize.w = window.innerWidth
-        console.log(this.canvasDom)
         this.canvasSize.h = window.innerHeight * (4 / 5)
         this.canvasDom.setAttribute('width', this.canvasSize.w)
         this.canvasDom.setAttribute('height', this.canvasSize.h)
@@ -89,7 +88,7 @@ const code_ninja = {
     },
 
     setGame() {
-        this.player = new Player(this.ctx, 30, 30, (this.canvasSize.w / 2) - 15, (this.canvasSize.h / 2) - 15, 10, this.canvasSize)
+        this.player = new Player(this.ctx, 30, 30, (this.canvasSize.w / 2) - 15, (this.canvasSize.h / 2) - 15, this.canvasSize.w, this.canvasSize.h)
         this.background = new Background(this.ctx, this.canvasSize.w, this.canvasSize.h, '/imgs/Space Background.png')
         const gameAudio = new Audio('/audio/Balloon.mp3');
         gameAudio.play();
