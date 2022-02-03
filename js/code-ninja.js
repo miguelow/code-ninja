@@ -94,7 +94,7 @@ const code_ninja = {
 
     setGame() {
         this.player = new Player(this.ctx, 30, 30, (this.canvasSize.w / 2) - 15, (this.canvasSize.h / 2) - 15, this.canvasSize.w, this.canvasSize.h)
-        this.background = new Background(this.ctx, this.canvasSize.w, this.canvasSize.h, 'imgs/Space Background.png')
+        this.background = new Background(this.ctx, this.canvasSize.w, this.canvasSize.h, './imgs/Space Background.png')
         const gameAudio = new Audio('audio/Balloon.mp3');
         gameAudio.play();
     },
