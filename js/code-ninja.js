@@ -94,8 +94,8 @@ const code_ninja = {
 
     setGame() {
         this.player = new Player(this.ctx, 30, 30, (this.canvasSize.w / 2) - 15, (this.canvasSize.h / 2) - 15, this.canvasSize.w, this.canvasSize.h)
-        this.background = new Background(this.ctx, this.canvasSize.w, this.canvasSize.h, '/imgs/Space Background.png')
-        const gameAudio = new Audio('/audio/Balloon.mp3');
+        this.background = new Background(this.ctx, this.canvasSize.w, this.canvasSize.h, 'imgs/Space Background.png')
+        const gameAudio = new Audio('audio/Balloon.mp3');
         gameAudio.play();
     },
 
@@ -215,16 +215,16 @@ const code_ninja = {
 
         if (choosePowerUp === 0) {
             this.powerUp = new PowerUpIce(this.ctx, Math.floor(Math.random() * this.canvasSize.w),
-                Math.floor(Math.random() * this.canvasSize.h), '/imgs/blueSlime.png', this.powerUpTimer, this.enemies, this.enemyColor)
+                Math.floor(Math.random() * this.canvasSize.h), 'imgs/blueSlime.png', this.powerUpTimer, this.enemies, this.enemyColor)
 
         }
         if (choosePowerUp === 1) {
             this.powerUp = new PowerUpBomb(this.ctx, Math.floor(Math.random() * this.canvasSize.w),
-                Math.floor(Math.random() * this.canvasSize.h), '/imgs/redSlime.png', this.powerUpTimer, this.player.playerPos.x, this.player.playerPos.y, this.enemies)
+                Math.floor(Math.random() * this.canvasSize.h), 'imgs/redSlime.png', this.powerUpTimer, this.player.playerPos.x, this.player.playerPos.y, this.enemies)
         }
         if (choosePowerUp === 2) {
             this.powerUp = new PowerUpGravity(this.ctx, Math.floor(Math.random() * this.canvasSize.w),
-                Math.floor(Math.random() * this.canvasSize.h), '/imgs/greenSlime.png', this.powerUpTimer, (-0.4))
+                Math.floor(Math.random() * this.canvasSize.h), 'imgs/greenSlime.png', this.powerUpTimer, (-0.4))
         }
     },
 
