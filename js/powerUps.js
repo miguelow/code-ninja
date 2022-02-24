@@ -14,7 +14,7 @@ class PowerUp {
         this.explosion.src = "imgs/fueguito.png"
         this.explosion.frames = 16
         this.explosion.framesIndex = 0
-
+        this.explosionChecker = false
 
     }
 
@@ -34,6 +34,7 @@ class PowerUpIce extends PowerUp {
         super(ctx, powerUpPosX, powerUpPosY, powerUpImage, powerUpTimer)
         this.enemiesArray = enemiesArray
         this.enemyColor = enemyColor
+        this.explosionChecker = false
     }
     // Freeze enemies
     activateBooster() {
@@ -71,6 +72,7 @@ class PowerUpBomb extends PowerUp {
         super(ctx, powerUpPosX, powerUpPosY, powerUpImage, powerUpTimer)
         this.playerPos = { x: playerPosX, y: playerPosY }
         this.enemiesArray = enemiesArray
+        this.explosionChecker = true
     }
     activateBooster(playerPos, enemiesArray) {
         return enemiesArray.filter((enemy, indexEnemy) => {
@@ -100,6 +102,7 @@ class PowerUpGravity extends PowerUp {
     constructor(ctx, powerUpPosX, powerUpPosY, powerUpImage, powerUpTimer, repelValue) {
         super(ctx, powerUpPosX, powerUpPosY, powerUpImage, powerUpTimer)
         this.repel = repelValue
+        this.explosionChecker = false
     }
     activateBooster(playerPos, enemiesArray) {
         enemiesArray.forEach(enemy => {

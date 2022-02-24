@@ -70,9 +70,7 @@ const code_ninja = {
                 this.powerUpTimer = 0
 
             }
-
             this.powerUpTimerVerify ? this.powerUpTimer++ : null
-
 
             this.enemies.forEach(elm => {
                 elm.move(this.player.playerPos)
@@ -84,9 +82,6 @@ const code_ninja = {
                     elm.enemyColor = this.enemyColor
                 }
             })
-            if (this.explosion != undefined) {
-                this.explosion.draw(this.framesCounter)
-            }
             this.wordsCounter()
             this.livesCounter()
         }, 1000 / this.FPS)
@@ -185,7 +180,6 @@ const code_ninja = {
 
                 this.startPowerUpTimer()
                 this.enemies = this.powerUp.activateBooster(this.player.playerPos, this.enemies)
-
                 this.explosion = new Explosion(this.ctx, this.powerUp.powerUpPos.x, this.powerUp.powerUpPos.y, 400, 400, this.framesCounter)
                 this.powerUp = undefined
             }
@@ -210,7 +204,7 @@ const code_ninja = {
 
     createPowerUp() {
 
-        let choosePowerUp = Math.floor(Math.random() * 3)
+        let choosePowerUp = 1
 
 
         if (choosePowerUp === 0) {
