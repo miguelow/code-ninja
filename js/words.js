@@ -1,4 +1,4 @@
-const htmlWords = [
+const enemyWords = [
     "HyperText Markup Language",
     "<body>",
     "block-elements",
