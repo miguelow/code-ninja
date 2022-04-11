@@ -61,10 +61,6 @@ class PowerUpIce extends PowerUp {
         }
     }
 
-
-
-
-
 }
 
 class PowerUpBomb extends PowerUp {
@@ -75,11 +71,11 @@ class PowerUpBomb extends PowerUp {
         this.explosionChecker = true
     }
     activateBooster(playerPos, enemiesArray) {
-        return enemiesArray.filter((enemy, indexEnemy) => {
+        return enemiesArray.filter(enemy => {
             let dXEnemyPlayer = enemy.enemyPos.x - playerPos.x
             let dYEnemyPlayer = enemy.enemyPos.y - playerPos.y
 
-            if ((dXEnemyPlayer < 200 && dXEnemyPlayer > -200) && (dYEnemyPlayer < 200 && dYEnemyPlayer > -200)) {
+            if ((dXEnemyPlayer < 220 && dXEnemyPlayer > -220) && (dYEnemyPlayer < 220 && dYEnemyPlayer > -220)) {
                 return false
             }
             else return true

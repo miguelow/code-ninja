@@ -5,7 +5,7 @@ class Enemy {
         this.enemyVelocity = enemyVelocity
         this.enemySize = { h: enemyHeight }
         this.playerPos = { x: playerPosX, y: playerPosY }
-        this.RandomWordNumber = Math.floor(Math.random() * htmlWords.length)
+        this.RandomWordNumber = Math.floor(Math.random() * enemyWords.length)
         this.canvasSize = { w: canvasSizeW, h: canvasSizeH }
         this.enemyColor = enemyColor
     }
@@ -14,7 +14,7 @@ class Enemy {
         this.ctx.font = "20px 'Press Start 2P'"
         this.ctx.shadowColor = "rgba(0,0,0,0.3)";
         this.ctx.fillStyle = this.enemyColor
-        this.ctx.fillText(htmlWords[this.RandomWordNumber], this.enemyPos.x, this.enemyPos.y)
+        this.ctx.fillText(enemyWords[this.RandomWordNumber], this.enemyPos.x, this.enemyPos.y)
         this.checkWallCollisions()
     }
 
