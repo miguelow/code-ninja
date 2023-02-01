@@ -1,6 +1,9 @@
 # Code Ninja. A JavaScript web based game
 
 Developed by Miguel Ortega Ward and Jean Carlo Noguera (https://github.com/VmMad).
+
+-----
+
 Using  HTML5 · CSS3 · JAVASCRIPT · CANVAS
 
 ### `Try it here!` https://miguelow.github.io/code-ninja/
